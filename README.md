@@ -26,6 +26,9 @@ we will allocate each person to each issue.
 During each meeting, we go over current issues we are working in and our progress/delays through them (SCRUM-style).
 
 ## Management of schedule
+### Hours expected:
+We are expected to do at least 7-8 hours of work per week in the project.
+
 ### How:
 The schedule is outlined on an excel sheet. When somebody has done work, they will update the shared sheet, and commit 
 a message on GitLab.

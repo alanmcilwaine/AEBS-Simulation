@@ -1,5 +1,7 @@
 # SWEN326-Ficsit-T10-GroupProject
 
+Requirements Plan:
+https://docs.google.com/document/d/10FXqJvZVBdcMTsel8rvlqIHBUTW_BIkGAOFotbsturU/edit?tab=t.0
 
 # Group Agreement
 

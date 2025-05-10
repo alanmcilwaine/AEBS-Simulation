@@ -10,14 +10,14 @@
 | Luigi  | Worked on Fault Tree Analysis                                                                          |
 ## Future assigned work
 
-| Person | Task to be assigned                                            |
-| ------ | -------------------------------------------------------------- |
-| Alan   | Work on CI/CD Pipeline                                         |
-| Ming   | Work on State Diagrams                                         |
-| Daniel | Work on general System Architecture design, State Diagrams     |
-| Jac    | Create document covering the use of Power of 10 Rules and Java |
-| Carla  | Write Safe Coding Guidelines                                   |
-| Luigi  | Finish Fault Tree Analysis, Create Minimal Cutsets             |
+| Person | Task to be assigned                                                                  |
+| ------ | --------------------------------------------------------------                       |
+| Alan   | Work on CI/CD Pipeline                                                               |
+| Ming   | Work on State Diagrams                                                               |
+| Daniel | Work on general System Architecture design, State Diagrams                           |
+| Jac    | Create document covering the use of Power of 10 Rules and Java                       |
+| Carla  | Write Safe Coding Guidelines, Create document covering Power of 10 Rules and Java    |
+| Luigi  | Finish Fault Tree Analysis, Create Minimal Cutsets                                   |
 
 ## Other meeting notes:
 Safety Plan finished

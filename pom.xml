@@ -50,7 +50,7 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass>fixit_pioneers.App</mainClass> <!-- Replace with your actual main class -->
+          <mainClass>fixit_pioneers.App</mainClass>
         </configuration>
       </plugin>
     </plugins>

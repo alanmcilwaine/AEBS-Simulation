@@ -1,0 +1,5 @@
+# Created at 2025-05-16T16:42:02.720
+Boot Manifest-JAR contains absolute paths in classpath 'D:\UniFiles\300-level-docs\Tri1\SWEN326\GroupProject\swen326-ficsit-t10-groupproject\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+

@@ -5,16 +5,18 @@ public interface ControlSignals {
     double brakePower = 0.75;
 
     /**
+     * Takes a given car sensor, and processes the data in it.
      *
-     * @param sensor
-     * @param power
+     * @param sensor The car sensor of interest, that holds the data.
+     * @param power The brake power to apply to the car.
      */
     public void processSensorData(SensorType sensor, double power);
 
     /**
+     * Processes user input.
      *
-     * @param action
-     * @param power
+     * @param action The action that the car brakes will take.
+     * @param power The brake power to apply to the car.
      */
     public void processUserInput(Action action, double power);
 

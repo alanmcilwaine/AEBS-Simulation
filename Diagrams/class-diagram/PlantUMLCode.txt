@@ -1,0 +1,97 @@
+@startuml
+!theme mars
+package "Simulation"{
+ class Main{
+  +feedSensorData()
+ }
+package "Car"{
+ interface Car{
+  +tick()
+  +sensorInput(SensorType sensor, Optional<Double> signal)
+ }
+ 
+
+ package "Interface"{
+  enum Alert{
+   IDK,
+   Warning,
+   OutOfGas;
+  }
+  interface Interface{
+   +sendUserInput()
+   +receiveSpeed(double: speed)
+   +receiveAlerts(List<Alert> alerts)
+  }
+ }
+ package "ControlSignal"{
+  enum Action{
+   None,
+   Brake,
+   Accelerate;
+  }
+  interface ControlSignal{
+   -speed
+   -brakePower
+
+   +processSensorData(SensorType sensor, double: power)
+   +processUserInput(Action: action, double: power)
+   +triggerAntiBrakeLock()
+
+   +makeAnAction()
+  }
+ }
+ package "AEBS"{
+  interface AEBS {
+   +evaluateBraking()
+  }
+ }
+
+
+ package "Sensor"{
+  interface Sensor{
+   +readData(SensorType sensor, Optional<Double>: data)
+  }
+  
+  interface SpeedSensor implements Sensor{
+   +sendToControlSignal()
+   +sendToInterface()
+  }
+
+  interface DistanceSensor implements Sensor{
+   +sendToAEBS()
+  }
+  class WheelSpeed implements SpeedSensor{
+
+  }
+  class Camera implements DistanceSensor{
+
+  }
+  class Lidar implements DistanceSensor{
+
+  }
+  class Radar implements DistanceSensor{
+
+  }
+  enum SensorType{
+   WheelSpeedLeft,
+   WheelSpeedRight,
+   Radar,
+   Camera,
+   Lidar;
+  }
+ }
+ ControlSignal.ControlSignal <--> Interface.Interface
+ ControlSignal.ControlSignal --> Interface.Alert
+ Car --> Sensor.Sensor
+ Sensor.SpeedSensor --> ControlSignal.ControlSignal
+ Sensor.SpeedSensor --> Interface.Interface
+ AEBS.AEBS --> ControlSignal.ControlSignal
+ Sensor.DistanceSensor --> AEBS.AEBS
+ Car --> Sensor.SensorType
+ Interface.Alert --- Interface.Interface
+}
+
+Main --> Car.Car
+Main --> Car.Sensor.SensorType
+}
+@enduml

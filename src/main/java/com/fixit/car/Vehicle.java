@@ -1,0 +1,26 @@
+package com.fixit.car;
+
+import com.fixit.car.sensors.SensorType;
+
+/**
+ * Public API to access the Vehicle (Car).
+ * The simulation calls {@link #sensorInput(SensorType, double)}
+ * to send data to the vehicle.
+ *
+ */
+public interface Vehicle {
+  /**
+   * Tick will consistently call methods inside the sensors.
+   * This method might be irrelevant but will be nice if we need a tick.
+   */
+  void tick();
+
+  /**
+   * Receives input from the simulation to send data to different sensors.
+   *
+   * @param sensor The specific sensor which will receive the data.
+   * @param signal The stream of data for the sensor to interpret.
+   * @return A return code, 1 meaning successful and 0 meaning error.
+   */
+  int sensorInput(SensorType sensor, double signal);
+}

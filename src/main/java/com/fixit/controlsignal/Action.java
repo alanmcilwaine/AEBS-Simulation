@@ -10,5 +10,5 @@ public enum Action {
   /** The car will apply the brakes; may be ordered by the ABES. */
   BRAKE,
   /** The car will apply the accelerator. */
-  ACCELERATE;
+  ACCELERATE
 }

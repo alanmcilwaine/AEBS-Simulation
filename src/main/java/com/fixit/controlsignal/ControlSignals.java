@@ -1,5 +1,7 @@
 package com.fixit.controlsignal;
 
+import com.fixit.car.sensors.SensorType;
+
 public class ControlSignals implements ControlSignal {
   /** The current speed of the car. */
   double speed = 0.0;
@@ -15,9 +17,5 @@ public class ControlSignals implements ControlSignal {
   }
 
   public void makeAnAction() {
-
   }
 }
-
-/** "Mock Objects" to make the code compile. */
-record SensorType() {}

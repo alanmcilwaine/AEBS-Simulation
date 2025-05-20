@@ -4,7 +4,7 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>fixit_pioneers</groupId>
+  <groupId>fixit</groupId>
   <artifactId>swen303_group_project</artifactId>
   <version>1</version>
 
@@ -50,7 +50,7 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass>fixit_pioneers.Simulation.Simulation</mainClass>
+          <mainClass>fixit.simulation.Simulation</mainClass>
         </configuration>
       </plugin>
     </plugins>

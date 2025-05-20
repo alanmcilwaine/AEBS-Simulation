@@ -1,5 +1,5 @@
 package com.fixit.interfaces;
 
-public class Interface {
-    
+public interface Interface {
+
 }

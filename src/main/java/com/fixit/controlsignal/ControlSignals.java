@@ -21,4 +21,3 @@ public class ControlSignals implements ControlSignal {
 
 /** "Mock Objects" to make the code compile. */
 record SensorType() {}
-record Action() {}

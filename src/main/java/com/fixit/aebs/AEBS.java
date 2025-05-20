@@ -1,15 +1,16 @@
 package com.fixit.aebs;
 
-public interface AEBS {
+/**
+ * The Automatic Emergency Braking System for vehicles. Would trigger a brake
+ * signal to Control Signals if there are any hazards in front of the car
+ */
+public class AEBS implements AutoBrakeSystem {
 
-    /**
-     * Evaluate the distance between the vehicle and other objects in the path and
-     * determine whether they need braking.
-     * @param distanceData the distance of objects from the car
-     * @param wheelSpeed the speed of the wheel
-     * @return returns how much brake to apply to the car
-     */
-     double evaluateBraking(double distanceData, double wheelSpeed);
+    @Override
+    public double evaluateBraking(double distanceData, double wheelSpeed) {
+        // TODO: call determineThreshold and calculate how much brakes to put in
+        return 0;
+    }
 
     /**
      * Passes in the vehicle's wheel speed and that calculates the threshold on
@@ -17,7 +18,8 @@ public interface AEBS {
      * @param wheelSpeed the speed of the wheel
      * @return the braking threshold
      */
-    double determineThreshold(double wheelSpeed);
-
-
+    private double determineThreshold(double wheelSpeed) {
+        // TODO: find formula to how to calculate the threshold
+        return 0;
+    }
 }

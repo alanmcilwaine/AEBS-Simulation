@@ -11,5 +11,4 @@ public interface AutoBrakeSystem {
      */
      double evaluateBraking(double distanceData, double wheelSpeed);
 
-
 }

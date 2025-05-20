@@ -1,18 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>fixit</groupId>
   <artifactId>swen303_group_project</artifactId>
-  <version>1</version>
-
+  <version>1.0.0</version>
   <name>swen303_group_project</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.release>17</maven.compiler.release>
+    <!-- these configure the compiler and run-time target to Java 23 -->
+    <maven.compiler.source>23</maven.compiler.source>
+    <maven.compiler.target>23</maven.compiler.target>
+    <maven.compiler.release>23</maven.compiler.release>
   </properties>
 
   <dependencyManagement>
@@ -29,19 +33,29 @@
 
   <dependencies>
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.8.1</version>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
       <scope>test</scope>
     </dependency>
-</dependencies>
+  </dependencies>
 
   <build>
     <plugins>
+      <!-- 1) Java 23 compilation -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.11.0</version> <!-- supports Java 23 -->
+        <configuration>
+          <release>23</release>
+        </configuration>
+      </plugin>
+
+      <!-- 2) Run your Simulation main() -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>3.1.0</version>
+        <version>3.1.0</version> <!-- correct version -->
         <executions>
           <execution>
             <goals>
@@ -50,10 +64,16 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass>fixit.simulation.Simulation</mainClass>
+          <mainClass>com.fixit.simulation.Simulation</mainClass>
         </configuration>
+      </plugin>
+
+      <!-- 3) JUnit 5 test runner -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.1.2</version>
       </plugin>
     </plugins>
   </build>
-
 </project>

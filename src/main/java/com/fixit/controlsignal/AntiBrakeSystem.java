@@ -31,11 +31,14 @@ public class AntiBrakeSystem {
     //Keeps track of the current wheel speed for later evaluation.
     oldWheelSpeed = newWheelSpeed;
 
-    if (brakePower <= 0.0 || speedDif > SPEED_DIF_THRESHOLD) {
-      return 0.0; //The given brake power will not be applied.
-    } else {
-     return brakePower;
-    }
+    /*
+     * Applies the brake power, if the difference in speed is less than
+     * the threshold, and if the car is applying the brakes.
+     */
+    if (brakePower > 0.0 && speedDif <= SPEED_DIF_THRESHOLD)
+      return brakePower;
 
+    //The given brake power will not be applied if the condition is not met.
+    return 0.0;
   }
 }

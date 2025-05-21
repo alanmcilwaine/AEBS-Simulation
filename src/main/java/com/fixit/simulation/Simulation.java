@@ -1,8 +1,11 @@
 package com.fixit.simulation;
 
+import com.fixit.car.Car;
+import com.fixit.car.sensors.SensorType;
+
 public class Simulation {
     public static void main(String[] args) {
-        System.out.println("Pioneer: adequate");
-        
+        Car car = Car.instance();
+        car.sensorInput(null, 6.1);
     }
 }

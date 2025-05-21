@@ -10,6 +10,7 @@ public class AEBS implements AutoBrakeSystem {
   /**
    * Evaluates how much the system should brake.
    * Based on the distance between the vehicle and the road hazards.
+   *
    * @param distanceData th e distance of objects from the car
    * @param wheelSpeed the speed of the wheel.
    * @return returns the amount of brakes to use.
@@ -21,8 +22,8 @@ public class AEBS implements AutoBrakeSystem {
   }
 
   /**
-   * Passes in the vehicle's wheel speed and that calculates the threshold on
-   * when the brakes should hit
+   * Determines the threshold on when the brakes should be activated.
+   *
    * @param wheelSpeed the speed of the wheel
    * @return the braking threshold
    */

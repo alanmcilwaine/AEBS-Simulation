@@ -6,29 +6,48 @@ package com.fixit.aebs;
  */
 public class AEBS implements AutoBrakeSystem {
 
-
   /**
-   * Evaluates how much the system should brake.
+   * Evaluates the system's automatic braking system.
    * Based on the distance between the vehicle and the road hazards.
    *
-   * @param distanceData th e distance of objects from the car
+   * @param distanceData the distance of objects from the car
    * @param wheelSpeed the speed of the wheel.
-   * @return returns the amount of brakes to use.
+   * @return returns the braking value.
    */
   @Override
   public double evaluateBraking(final double distanceData, final double wheelSpeed) {
-    // TODO: call determineThreshold and calculate how much brakes to put in
+
+    // Determines whether or braking should happen or not
+    // This is to save resources on the calculations
+    if (distanceData >= determineThreshold(wheelSpeed)) {
+      return 1;
+    }
+
     return 0;
   }
 
   /**
-   * Determines the threshold on when the brakes should be activated.
+   * Determines the distance threshold for the brakes.
+   * This threshold reflects the risk of the collision.
    *
    * @param wheelSpeed the speed of the wheel
-   * @return the braking threshold
+   * @return the distance at which the vehicle should send brake
    */
   private double determineThreshold(final double wheelSpeed) {
     // TODO: find formula to how to calculate the threshold
+    return 0;
+  }
+
+  /**
+   * Determines how much the vehicle should brake.
+   * Is calculated with the distance of other objects and vehicle wheel speed.
+   *
+   * @param distanceData the distance of the objects from the car.
+   * @param wheelSpeed the speed of the wheel.
+   * @return returns how much braking should be given
+   */
+  private double determineBrakes(final double distanceData, final double wheelSpeed) {
+    double brakingPower = wheelSpeed - distanceData;
     return 0;
   }
 }

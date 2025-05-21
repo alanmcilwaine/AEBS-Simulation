@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Reads a simulation datafile and
+ *
+ */
 public class ReadSimulationFile {
   private List<List<Double>> sensorData;
   private String weather;
@@ -19,6 +23,7 @@ public class ReadSimulationFile {
   public void readData() {
     try {
       List<String> content = Files.readAllLines(filePath);
+      content.removeIf(e -> e.isEmpty());
       this.weather = content.remove(0);
       this.sensorData = content.stream()
           .map((c) -> {
@@ -29,7 +34,7 @@ public class ReadSimulationFile {
           })
           .toList();
     } catch (IOException e) {
-      System.out.println("Error reading file");
+      throw new Error("Error reading file");
     }
   }
 }

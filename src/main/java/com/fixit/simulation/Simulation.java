@@ -8,6 +8,7 @@ public class Simulation {
     Car car = Car.instance();
     car.sensorInput(SensorType.LIDARCENTRE, 6.1);
 
-    Car c = Car.instance();
+    ReadSimulationFile file = new ReadSimulationFile("src/main/java/com/fixit/simulation/testdata.txt");
+    file.readData();
   }
 }

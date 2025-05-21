@@ -19,32 +19,21 @@ public class AntiBrakeSystem {
    * Calculates the amount of change in the wheel-speed over time.
    * This determines whether to apply the Anti-Brake system.
    *
-   * @param curBrakePower The maximum amount of Brakes that the car should apply.
-   * @param curWheelSpeed The current speed of the car's wheels.
+   * @param brakePower The amount of Brake Power that will be applied to the car.
+   * @param newWheelSpeed The new speed of the car's wheels. (In RPM.)
    * @return The brake power that will be applied.
    */
-  public double evaluate(double curBrakePower, double curWheelSpeed){
-    double speedDif = curWheelSpeed - this.oldWheelSpeed;
-    double amountToBrake = curBrakePower - oldBrakePower;
+  public double evaluate(double brakePower, double newWheelSpeed){
+    double speedDif = -(newWheelSpeed - oldWheelSpeed);
 
-    setOldValues(curBrakePower, curWheelSpeed);
+    //Keeps track of the current wheel speed for later evaluation.
+    oldWheelSpeed = newWheelSpeed;
 
-    if (curBrakePower <= 0.0 || speedDif > 0.5) { /* NB: 0.5 is a placeholder. */
+    if (brakePower <= 0.0 || speedDif > 75) { /* NB: 75 is a placeholder. */
       return 0.0; //The given brake power will not be applied.
     } else {
-     return amountToBrake;
+     return brakePower;
     }
 
-  }
-
-  /**
-   * Keeps track of the current wheel speeds and brake power for later evaluation.
-   *
-   * @param newBrakePower The current level of power being applied to the brakes.
-   * @param newWheelSpeed The current wheel-speeds of the car.
-   */
-  private void setOldValues(double newBrakePower, double newWheelSpeed){
-    oldWheelSpeed = newWheelSpeed;
-    oldBrakePower = newBrakePower;
   }
 }

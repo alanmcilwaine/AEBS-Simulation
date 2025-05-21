@@ -1,5 +1,7 @@
 package com.fixit.controlsignal;
 
+import com.fixit.car.sensors.SensorType;
+
 interface ControlSignal {
   /**
    * Takes a given car sensor, and processes the data in it.

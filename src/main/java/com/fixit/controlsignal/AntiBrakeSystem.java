@@ -6,12 +6,29 @@ package com.fixit.controlsignal;
  * (Determined by the Wheel-speed's deceleration.)
  */
 public class AntiBrakeSystem {
-  int wheelSpeed;
-  int brakePower;
+  /** The last recorded speed of the car's wheels. */
+  double oldWheelSpeed;
 
   /**
-   *
+   * The last recorded power level on the car's brakes. This affects how much
+   * the car will decelerate.
    */
-  public void evaluate(int brakePower, int wheelSpeed){
+  double oldBrakePower;
+
+  /**
+   * Calculates the amount of change in the wheel-speed over time.
+   * This determines whether to apply the Anti-Brake system.
+   *
+   * @param curBrakePower The maximum amount of Brakes that the car should apply.
+   * @param curWheelSpeed The current speed of the car's wheels.
+   */
+  public double evaluate(double curBrakePower, double curWheelSpeed){
+    double speedDif = curWheelSpeed - this.oldWheelSpeed;
+
+    if (speedDif > 0.5) { /* NB: 0.5 is a placeholder. */
+      return 0.0; //The given brake power will not be applied.
+    } else {
+     return curBrakePower;
+    }
   }
 }

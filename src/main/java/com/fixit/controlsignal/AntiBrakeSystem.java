@@ -21,14 +21,30 @@ public class AntiBrakeSystem {
    *
    * @param curBrakePower The maximum amount of Brakes that the car should apply.
    * @param curWheelSpeed The current speed of the car's wheels.
+   * @return The brake power that will be applied.
    */
   public double evaluate(double curBrakePower, double curWheelSpeed){
     double speedDif = curWheelSpeed - this.oldWheelSpeed;
+    double amountToBrake = curBrakePower - oldBrakePower;
 
-    if (speedDif > 0.5) { /* NB: 0.5 is a placeholder. */
+    setOldValues(curBrakePower, curWheelSpeed);
+
+    if (curBrakePower <= 0.0 || speedDif > 0.5) { /* NB: 0.5 is a placeholder. */
       return 0.0; //The given brake power will not be applied.
     } else {
-     return curBrakePower;
+     return amountToBrake;
     }
+
+  }
+
+  /**
+   * Keeps track of the current wheel speeds and brake power for later evaluation.
+   *
+   * @param newBrakePower The current level of power being applied to the brakes.
+   * @param newWheelSpeed The current wheel-speeds of the car.
+   */
+  private void setOldValues(double newBrakePower, double newWheelSpeed){
+    oldWheelSpeed = newWheelSpeed;
+    oldBrakePower = newBrakePower;
   }
 }

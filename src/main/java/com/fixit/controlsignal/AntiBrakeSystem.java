@@ -10,10 +10,12 @@ public class AntiBrakeSystem {
   double oldWheelSpeed;
 
   /**
-   * The last recorded power level on the car's brakes. This affects how much
-   * the car will decelerate.
+   * The threshold change in speed that determines if the car is likely to
+   * skid.
+   * This value is currently a placeholder.
+   * ## TAKE NOTE! ##
    */
-  double oldBrakePower;
+  final double SPEED_DIF_THRESHOLD = 75;
 
   /**
    * Calculates the amount of change in the wheel-speed over time.
@@ -29,7 +31,7 @@ public class AntiBrakeSystem {
     //Keeps track of the current wheel speed for later evaluation.
     oldWheelSpeed = newWheelSpeed;
 
-    if (brakePower <= 0.0 || speedDif > 75) { /* NB: 75 is a placeholder. */
+    if (brakePower <= 0.0 || speedDif > SPEED_DIF_THRESHOLD) {
       return 0.0; //The given brake power will not be applied.
     } else {
      return brakePower;

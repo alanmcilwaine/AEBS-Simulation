@@ -16,6 +16,7 @@ public class AEBS implements AutoBrakeSystem {
    */
   @Override
   public double evaluateBraking(final double distanceData, final double wheelSpeed) {
+    // TODO: Check for any more parameters needed to be added
 
     // Determines whether or braking should happen or not
     // This is to save resources on the calculations
@@ -29,13 +30,21 @@ public class AEBS implements AutoBrakeSystem {
   /**
    * Determines the distance threshold for the brakes.
    * This threshold reflects the risk of the collision.
+   * Calculates via:
+   * Distance = Vehicle Speed * ReactionTime
    *
    * @param wheelSpeed the speed of the wheel
    * @return the distance at which the vehicle should send brake
    */
   private double determineThreshold(final double wheelSpeed) {
-    // TODO: find formula to how to calculate the threshold
-    return 0;
+    // the average human reaction time is 0.25 seconds
+    // for this purpose we will account for those who have
+    // slower reaction times by increasing this value
+    final double reactTime = 0.35;
+    double threshold;
+
+    threshold = wheelSpeed * reactTime;
+    return threshold;
   }
 
   /**
@@ -48,6 +57,8 @@ public class AEBS implements AutoBrakeSystem {
    */
   private double determineBrakes(final double distanceData, final double wheelSpeed) {
     double brakingPower = wheelSpeed - distanceData;
+
+
     return 0;
   }
 }

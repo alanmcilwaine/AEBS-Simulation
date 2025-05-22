@@ -38,6 +38,11 @@ public class UI implements Interface {
 
   @Override
   public void receiveSpeed(double speed) {
-    System.out.println(speed);
+    System.out.println(speed);    //placeholder logic to show user speed
+  }
+
+  @Override
+  public void receiveWarning(String warning) {
+    System.out.println(warning);  //placeholder logic to show user warning
   }
 }

@@ -10,14 +10,6 @@ public class AntiBrakeSystem {
   double oldWheelSpeed;
 
   /**
-   * The threshold change in speed that determines if the car is likely to
-   * skid.
-   * This value is currently a placeholder.
-   * ## TAKE NOTE! ##
-   */
-  final double SPEED_DIF_THRESHOLD = 75;
-
-  /**
    * Calculates the amount of change in the wheel-speed over time.
    * This determines whether to apply the Anti-Brake system.
    *
@@ -26,7 +18,7 @@ public class AntiBrakeSystem {
    * @return The brake power that will be applied.
    */
   public double evaluate(double brakePower, double newWheelSpeed){
-    double speedDif = -(newWheelSpeed - oldWheelSpeed);
+    double speedDif = newWheelSpeed - oldWheelSpeed;
 
     //Keeps track of the current wheel speed for later evaluation.
     oldWheelSpeed = newWheelSpeed;
@@ -35,10 +27,23 @@ public class AntiBrakeSystem {
      * Applies the brake power, if the difference in speed is less than
      * the threshold, and if the car is applying the brakes.
      */
-    if (brakePower > 0.0 && speedDif <= SPEED_DIF_THRESHOLD)
+    if (brakePower > 0.0 && checkAgainstThreshold(speedDif))
       return brakePower;
 
     //The given brake power will not be applied if the condition is not met.
     return 0.0;
+  }
+
+  /**
+   * In order for the Brakes to apply, the car must be decreasing in speed,
+   * and must not be decreasing by more than 75pm.
+   * (NB: 75pm is currently a placeholder, and this value may change.)
+   *
+   * @return Whether the difference in speed is negative and above the given
+   * negative threshold.
+   */
+  private boolean checkAgainstThreshold(double speedDif){
+    final double SPEED_DIF_THRESHOLD = -75;
+    return speedDif >= SPEED_DIF_THRESHOLD && speedDif < 0;
   }
 }

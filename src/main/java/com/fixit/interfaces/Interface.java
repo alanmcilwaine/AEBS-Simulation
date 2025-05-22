@@ -1,7 +1,7 @@
 package com.fixit.interfaces;
 
 /**
- * Public API access to Interface (UI)
+ * Public API access to Interface (UI).
  * Does stuff
  */
 public interface Interface {

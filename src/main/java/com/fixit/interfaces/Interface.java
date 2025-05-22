@@ -2,31 +2,15 @@ package com.fixit.interfaces;
 
 /**
  * Public API access to Interface (UI)
- *
+ * Does stuff
  */
 public interface Interface {
   /**
-   * autoSystemToggle method calls controlSignal to
-   * enable or disable the Automatic Emergency Braking system.
-   * Returns void, but tells the user the state
-   * of the system (on or off)
-   */
-  void autoSystemToggle();
-
-  /**
-   * applyBrake method calls controlSignal to apply the amount
-   * of brakes specified by the driver to slow down.
-   * Returns void.
+   * receiveSpeed method gets called by sensor
+   * package and then displays speed to the user.
    *
-   * @param brakePower The amount of power to send to the brakes.
+   * @param speed is the unit of measurement (kph) that will be
+   * displayed to the user.
    */
-  void applyBrake(double brakePower);
-  /**
-   * applyThrottle method calls controlSignal to apply the amount
-   * of throttle specified by the driver to speed up.
-   * Returns void.
-   *
-   * @param throttlePower the amount of throttle to send to car.
-   */
-  void applyThrottle(double throttlePower);
+  void receiveSpeed(double speed);
 }

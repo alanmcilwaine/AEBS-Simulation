@@ -80,4 +80,11 @@ public class AntiBrakeSystem {
   private boolean checkAgainstThreshold(double speedDif){
     return speedDif >= SPEED_DIF_THRESHOLD && speedDif < 0;
   }
+
+  /**
+   * @return The brake power that will be applied to the brakes.
+   */
+  public double getBrakePowerToApply(){
+    return this.brakePower;
+  }
 }

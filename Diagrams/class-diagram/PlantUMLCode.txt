@@ -1,13 +1,26 @@
 @startuml
 !theme mars
 package "Simulation"{
+ enum Weather{
+  Fog,
+  Sun,
+  Rain;
+ }
  class Main{
   +feedSensorData()
  }
 package "Car"{
  interface Car{
+  -weather: Weather
+  -sensors
+  -speed
+  -controlSignal
+
   +tick()
-  +sensorInput(SensorType sensor, Optional<Double> signal)
+  +instance(weather)
+  +instance()
+  +sensorInput(SensorType sensor, double signal, Weather weather)
+  +speed(speed)
  }
  
 
@@ -39,6 +52,13 @@ package "Car"{
 
    +makeAnAction()
   }
+
+  interface ABS{
+   -brakePower
+   -wheelSpeed
+
+   +evaluate(brakePower, wheelSpeed): double
+  }
  }
  package "AEBS"{
   interface AEBS {
@@ -49,7 +69,7 @@ package "Car"{
 
  package "Sensor"{
   interface Sensor{
-   +readData(SensorType sensor, Optional<Double>: data)
+   +readData(SensorType sensor, double data, Weather weather)
   }
   
   interface SpeedSensor implements Sensor{
@@ -89,6 +109,8 @@ package "Car"{
  Sensor.DistanceSensor --> AEBS.AEBS
  Car --> Sensor.SensorType
  Interface.Alert --- Interface.Interface
+ ControlSignal.ControlSignal <--> ControlSignal.ABS
+ ControlSignal.ControlSignal --> Car
 }
 
 Main --> Car.Car

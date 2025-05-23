@@ -17,6 +17,7 @@ public class Simulation {
     Car car = Car.instance();
 
     try {
+
       for (List<Double> data : file.sensorData()) {
         car.sensorInput(SensorType.LIDARLEFT, data.get(0));
         car.sensorInput(SensorType.LIDARCENTRE, data.get(1));

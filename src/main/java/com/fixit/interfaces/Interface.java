@@ -23,9 +23,18 @@ public interface Interface {
    * as ABS being triggered, AutoBrakeSystem being triggered, or
    * enabled/disabled.
    *
-   * @param warning is the warning object that gets passed from ControlSignal that gets displayed to the user.
+   * @param warning is the warning object that gets passed from
+   *               ControlSignal that gets displayed to the user.
    */
   static void receiveWarning(String warning) {
+
+  }
+
+  /**
+   * tick method is the method that will be used to update
+   * the Visual User Interface.
+   */
+  static void tick() {
 
   }
 }

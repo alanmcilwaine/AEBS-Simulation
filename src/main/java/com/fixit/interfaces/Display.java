@@ -8,7 +8,7 @@ public class Display {
   /**
    *  speed variable is what will be used to display to driver.
    */
-  private double speed = 0;
+  private static double speed = 0;
 
   /**
    * speedToShow is the putter method that updates the speed
@@ -33,7 +33,7 @@ public class Display {
    * display method is the method that will be used to
    * show to the user any information that pops up.
    */
-  private void display() {
+  public static void display() {
     System.out.println("Speed is currently: " + speed + " kph");
   }
 }

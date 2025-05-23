@@ -1,7 +1,6 @@
 package com.fixit.interfaces;
 
-import static com.fixit.interfaces.Display.speedToShow;
-
+import static com.fixit.interfaces.Display.*;
 
 /**
  * UI class holds functionality with the UI.
@@ -67,5 +66,13 @@ public class UserInterface implements Interface {
   public void receiveWarning(final String warning) {
     System.out.println(warning);
     //placeholder logic to show user warning, not sure what data type yet.
+  }
+
+  /**
+   * tick method is the method used to update
+   * the Visual User Interface.
+   */
+  static void tick() {
+    Display.display();
   }
 }

@@ -12,31 +12,25 @@ public class AntiBrakeSystem {
   /** The recorded power level to apply to the brakes. */
   private double brakePower;
 
-  /**
-   * Threshold that determines if there's going to be a massive change in
-   * speed, and therefore, if the brakes are likely to lock.
-   */
-  final double SPEED_DIF_THRESHOLD = -75;
-
-  //
-  private boolean dont_apply_brake = false;
+  /** Determines when we don't want the brake to be applied. */
+  private boolean dontApplyBrake = false;
 
   /**
    * Calculates the amount of change in the wheel-speed over time.
    * This determines whether to apply the Anti-Brake system.
    *
-   * @param brakePower The amount of Brake Power that will be applied to the car.
-   * @param newWheelSpeed The new speed of the car's wheels. (In RPM.)
+   * @param applyBrakePower The amount of Brake Power that is to be applied.
+   * @param newSpeed The new speed of the car's wheels. (In RPM.)
    * @return The brake power that will be applied.
    */
-  public double evaluate(double brakePower, double newWheelSpeed){
+  public double evaluate(final double applyBrakePower, final double newSpeed) {
     /*
      * If in the previous tick, we chose to apply the ABS, we'll not apply the
      * brakes here, and keep record of this.
      */
-    if (dont_apply_brake){
+    if (dontApplyBrake) {
       this.brakePower = 0.0;
-      dont_apply_brake = false;
+      dontApplyBrake = false;
       return 0.0;
     }
 
@@ -44,29 +38,30 @@ public class AntiBrakeSystem {
      * We first take note of the brake power value entered, so we can give it
      * to the brakes.
      */
-    this.brakePower = brakePower;
+    this.brakePower = applyBrakePower;
 
     /*
      * We then calculate the difference in speed to find out if the speed is
      * massively changing, and therefore, find out if the wheels will slip.
      */
-    double speedDif = newWheelSpeed - oldWheelSpeed;
+    double speedDif = newSpeed - oldWheelSpeed;
 
     //Keeps track of the current wheel speed for later evaluation.
-    oldWheelSpeed = newWheelSpeed;
+    oldWheelSpeed = newSpeed;
 
     /*
      * If the difference in speed is more than the threshold, in the next
      * tick, we cannot apply any brakes.
      */
-    if (brakePower > 0.0 && !checkAgainstThreshold(speedDif))
-      dont_apply_brake = true;
+    if (applyBrakePower > 0.0 && !checkAgainstThreshold(speedDif)) {
+      dontApplyBrake = true;
+    }
 
     /*
      * Regardless of whether ABS kicked in or not, we'll return the amount of
      * brake power to apply.
      */
-    return brakePower;
+    return applyBrakePower;
   }
 
   /**
@@ -74,17 +69,20 @@ public class AntiBrakeSystem {
    * and must not be decreasing by more than 75pm.
    * (NB: 75pm is currently a placeholder, and this value may change.)
    *
-   * @return Whether the difference in speed is negative and above the given
-   * negative threshold.
+   * @param speedDif The calculated difference in wheel speed between ticks.
+   * @return Whether the difference in speed meets the given requirements.
    */
-  private boolean checkAgainstThreshold(double speedDif){
-    return speedDif >= SPEED_DIF_THRESHOLD && speedDif < 0;
+  private boolean checkAgainstThreshold(final double speedDif) {
+    final double speedDifThreshold = -75;
+    return speedDif >= speedDifThreshold && speedDif < 0;
   }
 
   /**
-   * @return The brake power that will be applied to the brakes.
+   * Method that retrieves the set brake power and returns it.
+   *
+   * @return The brake power to apply to the brakes.
    */
-  public double getBrakePowerToApply(){
+  public double getBrakePowerToApply() {
     return this.brakePower;
   }
 }

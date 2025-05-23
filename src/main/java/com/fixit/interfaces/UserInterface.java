@@ -1,5 +1,6 @@
 package com.fixit.interfaces;
-import com.fixit.interfaces.Display;
+
+import static com.fixit.interfaces.Display.speedToShow;
 
 
 /**
@@ -46,10 +47,12 @@ public class UserInterface implements Interface {
    * display the speed to user.
    *
    * @param speed is the unit of measurement (kph) that
-   * will be displayed to the user.
+   *        will be displayed to the user.
    */
+
   public void receiveSpeed(final double speed) {
-    Display.speedToShow(speed);    //calls speedToShow to add speed to the display
+    speedToShow(speed);
+    //calls speedToShow to add speed to the display
   }
 
   /**
@@ -58,8 +61,8 @@ public class UserInterface implements Interface {
    * This can be anything such as ABS being triggered, AutoBrakeSystem
    * being triggered, or enabled/disabled.
    *
-   * @param warning is the warning object that gets passed from ControlSignal
-   * that gets displayed to the user.
+   * @param warning is the warning object that gets passed from
+   *                ControlSignal that gets displayed to the user.
    */
   public void receiveWarning(final String warning) {
     System.out.println(warning);

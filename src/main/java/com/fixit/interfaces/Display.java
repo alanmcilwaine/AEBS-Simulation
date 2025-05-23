@@ -6,23 +6,34 @@ package com.fixit.interfaces;
  */
 public class Display {
   /**
-   *
+   *  speed variable is what will be used to display to driver.
    */
-  double speed = 0;
-  /**
-   *
-   * @param v
-   */
+  private double speed = 0;
 
+  /**
+   * speedToShow is the putter method that updates the speed
+   * of the vehicle to then be displayed to the user.
+   *
+   * @param v is the passed variable that will update speed.
+   */
   public static void speedToShow(final double v) {
     speed = v;
   }
 
   /**
-   * Display method is the method that will be used to
+   *  Takes in the errors to show to eventually show the user
+   *
+   * @param error does thingy
+   */
+  public static void errorsToShow(final String error) {
+
+  }
+
+  /**
+   * display method is the method that will be used to
    * show to the user any information that pops up.
    */
-  private void Display() {
+  private void display() {
     System.out.println("Speed is currently: " + speed + " kph");
   }
 }

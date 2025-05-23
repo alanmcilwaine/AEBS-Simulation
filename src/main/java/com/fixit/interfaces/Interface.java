@@ -10,7 +10,7 @@ public interface Interface {
    * and then displays speed to the user.
    *
    * @param speed is the unit of measurement (kph)
-   * that will be displayed to the user.
+   *              that will be displayed to the user.
    */
   static void receiveSpeed(double speed) {
 

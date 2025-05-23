@@ -9,13 +9,15 @@ public class AEBS implements AutoBrakeSystem {
   /**
    * the amount of brakes to send to control signal.
    */
-  private double brakeValue = 0;
+  private static double brakeValue = 0;
 
-  private boolean distanceRecieved = false;
-  private boolean speedRecieved = false;
+  private static boolean distanceReceived = false;
+  private static boolean speedReceived = false;
 
-  private double distance = 0;
-  private double speed = 0;
+  private static double distance = 0;
+  private static double speed = 0;
+
+  private AEBS() {}
 
   /**
    * Returns the amount of brakes needed for the car.
@@ -35,13 +37,11 @@ public class AEBS implements AutoBrakeSystem {
    * @param distanceData the distance of objects from the car
    * @param wheelSpeed the speed of the wheel.
    */
-  @Override
   public void evaluateBraking(final double distanceData, final double wheelSpeed) {
     // TODO: Check for any more parameters needed to be added
 
     // Determines whether or braking should happen or not
     // This is to save resources on the calculations
-
     if (distanceData >= determineThreshold(wheelSpeed)) {
       brakeValue = determineBrakes(distanceData, wheelSpeed);
     } else {
@@ -60,7 +60,7 @@ public class AEBS implements AutoBrakeSystem {
    * @param wheelSpeed the speed of the wheel
    * @return the distance at which the vehicle should send brake
    */
-  private double determineThreshold(final double wheelSpeed) {
+  private static double determineThreshold(final double wheelSpeed) {
     // the average human reaction time is 0.25 seconds
     // for this purpose we will account for those who have
     // slower reaction times by increasing this value
@@ -77,29 +77,31 @@ public class AEBS implements AutoBrakeSystem {
    * @param wheelSpeed the speed of the wheel in km/h.
    * @return returns how much braking should be given
    */
-  private double determineBrakes(final double distanceData, final double wheelSpeed) {
+  private static double determineBrakes(final double distanceData, final double wheelSpeed) {
     double brakingPower = wheelSpeed - distanceData;
     return 0;
   }
 
-  public void recieveSpeedAEBS(final double distanceData) {
-    this.distance = distanceData;
-    distanceRecieved = true;
+  public static void receiveSpeedAEBS(final double distanceData) {
+    distance = distanceData;
+    distanceReceived = true;
+    tick();
   }
 
-  public void recieveDistanceAEBS(final double wheelSpeed) {
-    this.speed = wheelSpeed;
-    distanceRecieved = true;
+  public static void receiveDistanceAEBS(final double wheelSpeed) {
+    speed = wheelSpeed;
+    distanceReceived = true;
+    tick();
   }
 
-  public void tick() {
-i
-    // if the distance and speed has been recieved
-    if (distanceRecieved && speedRecieved) {
-      evaluateBraking();
+  private static void tick() {
 
-      distanceRecieved = false;
-      speedRecieved = false;
+    // if the distance and speed has been received
+    if (distanceReceived && speedReceived) {
+
+      distanceReceived = false;
+      speedReceived = false;
     }
+
   }
 }

@@ -17,6 +17,7 @@ public interface AutoBrakeSystem {
    */
   void evaluateBraking(double distanceData, double wheelSpeed);
 
+
   /**
    * Returns the amount of brakes needed for the car.
    * Gives a 0 if no brake should be applied.

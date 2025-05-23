@@ -7,10 +7,10 @@ package com.fixit.controlsignal;
  */
 public class AntiBrakeSystem {
   /** The last recorded speed of the car's wheels. */
-  double oldWheelSpeed;
+  private double oldWheelSpeed;
 
   /** The last recorded power level to apply to the brakes. */
-  double oldBrakePower;
+  private double oldBrakePower;
 
   /**
    * Calculates the amount of change in the wheel-speed over time.

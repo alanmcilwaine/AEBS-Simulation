@@ -10,22 +10,39 @@ import java.util.List;
  * @author Ming Bao.
  */
 public class Simulation {
-  public static void main(String[] args) {
-    ReadSimulationFile file = new ReadSimulationFile("src/main/java/com/fixit/simulation/testdata.txt");
+  /**
+   * The time in between each piece of data sent to car.
+   */
+  static final int SLEEPTIME = 50;
+
+  /**
+   * Runs the simulation.
+   */
+  private void run() {
+    ReadSimulationFile file = new ReadSimulationFile(
+        "src/main/java/com/fixit/simulation/testdata.txt");
     file.readData();
     Car car = Car.instance();
 
     try {
-
       for (List<Double> data : file.sensorData()) {
         car.sensorInput(SensorType.LIDARLEFT, data.get(0), file.weather());
         car.sensorInput(SensorType.LIDARCENTRE, data.get(1), file.weather());
         car.sensorInput(SensorType.LIDARRIGHT, data.get(2), file.weather());
-
-        Thread.sleep(50);
+        Thread.sleep(SLEEPTIME);
       }
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }
+  }
+
+  /**
+   * Main function for a simulation.
+   *
+   * @param ignoredArgs Is not used.
+   */
+  public static void main(final String[] ignoredArgs) {
+    Simulation simulation = new Simulation();
+    simulation.run();
   }
 }

@@ -74,7 +74,7 @@ public final class Car implements Vehicle {
   }
 
   @Override
-  public int sensorInput(final SensorType sensor, final double signal,
+  public void sensorInput(final SensorType sensor, final double signal,
                          final Weather weather) {
     assert sensor != null;
     assert signal >= 0;
@@ -98,6 +98,5 @@ public final class Car implements Vehicle {
         throw new IllegalArgumentException("Unsupported sensor: " + sensor);
       }
     }
-    return 1;
   }
 }

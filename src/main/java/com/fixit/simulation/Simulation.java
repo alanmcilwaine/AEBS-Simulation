@@ -26,9 +26,9 @@ public class Simulation {
 
     try {
       for (List<Double> data : file.sensorData()) {
-        car.sensorInput(SensorType.LIDARLEFT, data.get(0));
-        car.sensorInput(SensorType.LIDARCENTRE, data.get(1));
-        car.sensorInput(SensorType.LIDARRIGHT, data.get(2));
+        car.sensorInput(SensorType.LIDARLEFT, data.get(0), file.weather());
+        car.sensorInput(SensorType.LIDARCENTRE, data.get(1), file.weather());
+        car.sensorInput(SensorType.LIDARRIGHT, data.get(2), file.weather());
 
         Thread.sleep(SLEEPTIME);
       }

@@ -7,9 +7,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>fixit</groupId>
-  <artifactId>swen303_group_project</artifactId>
+  <artifactId>swen326_group_project</artifactId>
   <version>1.0.0</version>
-  <name>swen303_group_project</name>
+  <name>swen326_group_project</name>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

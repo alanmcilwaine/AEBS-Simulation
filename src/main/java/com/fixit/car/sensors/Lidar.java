@@ -13,7 +13,7 @@ public class Lidar implements DistanceSensor {
 
     @Override
     public void sendToAEBS(SensorType sensor, Double data, Weather weather) {
-        AEBS.receiveDistance(data);
+        AEBS.receiveDistanceAEBS(data);
     }
 
     @Override

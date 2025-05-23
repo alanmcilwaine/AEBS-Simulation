@@ -25,7 +25,7 @@ public class WheelSpeed implements SpeedSensor {
 
     @Override
     public void sendToAEBS(SensorType sensor, Double data, Weather weather) {
-        AEBS.receiveSpeed(data);
+        AEBS.receiveSpeedAEBS(data);
     }
 
     @Override

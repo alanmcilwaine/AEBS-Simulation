@@ -19,11 +19,9 @@ interface ControlSignal {
    */
   void processUserInput(Action action, double power);
 
-  /**
-   * To prevent the wheels from locking up during braking, the Anti-Lock
-   * Brake system will activate automatically.
-   */
-  default void triggerAntiBrakeLock() {
+  /** Activates the Anti-lock Brake system. */
+  default void triggerAntiLockBrake() {
+    /* NB: Placeholder values are used here. */
   }
 
   /** Make an action! (Not sure what it does at this stage). */

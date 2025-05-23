@@ -9,8 +9,17 @@ public class AntiBrakeSystem {
   /** The last recorded speed of the car's wheels. */
   private double oldWheelSpeed;
 
-  /** The last recorded power level to apply to the brakes. */
-  private double oldBrakePower;
+  /** The recorded power level to apply to the brakes. */
+  private double brakePower;
+
+  /**
+   * Threshold that determines if there's going to be a massive change in
+   * speed, and therefore, if the brakes are likely to lock.
+   */
+  final double SPEED_DIF_THRESHOLD = -75;
+
+  //
+  private boolean dont_apply_brake = false;
 
   /**
    * Calculates the amount of change in the wheel-speed over time.
@@ -22,10 +31,20 @@ public class AntiBrakeSystem {
    */
   public double evaluate(double brakePower, double newWheelSpeed){
     /*
+     * If in the previous tick, we chose to apply the ABS, we'll not apply the
+     * brakes here, and keep record of this.
+     */
+    if (dont_apply_brake){
+      this.brakePower = 0.0;
+      dont_apply_brake = false;
+      return 0.0;
+    }
+
+    /*
      * We first take note of the brake power value entered, so we can give it
      * to the brakes.
      */
-    this.oldBrakePower = brakePower;
+    this.brakePower = brakePower;
 
     /*
      * We then calculate the difference in speed to find out if the speed is
@@ -37,17 +56,17 @@ public class AntiBrakeSystem {
     oldWheelSpeed = newWheelSpeed;
 
     /*
-     * Applies the brake power, if the difference in speed is less than
-     * the threshold, and if the car is applying the brakes.
+     * If the difference in speed is more than the threshold, in the next
+     * tick, we cannot apply any brakes.
      */
-    if (brakePower > 0.0 && checkAgainstThreshold(speedDif))
-      return brakePower;
+    if (brakePower > 0.0 && !checkAgainstThreshold(speedDif))
+      dont_apply_brake = true;
 
     /*
-     * The given brake power will therefore, need to be proportional to the
-     * amount of tyre grip.
+     * Regardless of whether ABS kicked in or not, we'll return the amount of
+     * brake power to apply.
      */
-    return speedDif;
+    return brakePower;
   }
 
   /**
@@ -59,7 +78,6 @@ public class AntiBrakeSystem {
    * negative threshold.
    */
   private boolean checkAgainstThreshold(double speedDif){
-    final double SPEED_DIF_THRESHOLD = -75;
     return speedDif >= SPEED_DIF_THRESHOLD && speedDif < 0;
   }
 }

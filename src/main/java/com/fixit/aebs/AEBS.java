@@ -2,7 +2,7 @@ package com.fixit.aebs;
 
 /**
  * The Automatic Emergency Braking System for vehicles. Would trigger a brake
- * signal to Control Signals if there are any hazards in front of the car
+ * signal to Control Signals if there are any hazards in front of the car.
  */
 public class AEBS implements AutoBrakeSystem {
 
@@ -36,9 +36,10 @@ public class AEBS implements AutoBrakeSystem {
     // Determines whether or braking should happen or not
     // This is to save resources on the calculations
     if (distanceData >= determineThreshold(wheelSpeed)) {
-      brakeValue = 1;
+      brakeValue = determineBrakes(distanceData, wheelSpeed);
+    } else {
+      brakeValue = 0;
     }
-    brakeValue = 0;
   }
 
   /**
@@ -55,23 +56,20 @@ public class AEBS implements AutoBrakeSystem {
     // for this purpose we will account for those who have
     // slower reaction times by increasing this value
     final double reactTime = 0.35;
-    double threshold;
 
-    threshold = wheelSpeed * reactTime;
-    return threshold;
+    return wheelSpeed * reactTime;
   }
 
   /**
    * Determines how much the vehicle should brake.
    * Is calculated with the distance of other objects and vehicle wheel speed.
    *
-   * @param distanceData the distance of the objects from the car.
-   * @param wheelSpeed the speed of the wheel.
+   * @param distanceData the distance of the objects from the car in km.
+   * @param wheelSpeed the speed of the wheel in km/h.
    * @return returns how much braking should be given
    */
   private double determineBrakes(final double distanceData, final double wheelSpeed) {
     double brakingPower = wheelSpeed - distanceData;
-
 
     return 0;
   }

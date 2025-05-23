@@ -48,7 +48,6 @@ public class UserInterface implements Interface {
    * @param speed is the unit of measurement (kph) that
    * will be displayed to the user.
    */
-  @Override
   public void receiveSpeed(final double speed) {
     Display.speedToShow(speed);    //calls speedToShow to add speed to the display
   }
@@ -62,8 +61,8 @@ public class UserInterface implements Interface {
    * @param warning is the warning object that gets passed from ControlSignal
    * that gets displayed to the user.
    */
-  @Override
   public void receiveWarning(final String warning) {
-    System.out.println(warning);  //placeholder logic to show user warning, not sure what data type yet.
+    System.out.println(warning);
+    //placeholder logic to show user warning, not sure what data type yet.
   }
 }

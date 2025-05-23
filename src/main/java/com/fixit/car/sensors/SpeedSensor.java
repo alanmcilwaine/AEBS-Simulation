@@ -12,12 +12,12 @@ public interface SpeedSensor extends Sensor {
      * 
      * @return 
      */
-    void sendToControlSignal();
+    void sendToControlSignal(SensorType sensor, Double data);
 
     /**
      * 
      * 
      * @return 
      */
-    void sendToInterface();
+    void sendToInterface(Double data);
 }

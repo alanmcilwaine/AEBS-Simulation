@@ -9,12 +9,12 @@ package com.fixit.car.sensors;
 public class Camera implements DistanceSensor {
 
     @Override
-    public void sendToAEBS() {
+    public void sendToAEBS(SensorType sensor, Double data) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override
-    public Double readData(SensorType sensor, Double data, Weather weather) {
+    public int readData(SensorType sensor, Double data, Weather weather) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

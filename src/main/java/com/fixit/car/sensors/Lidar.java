@@ -1,5 +1,7 @@
 package com.fixit.car.sensors;
 
+import com.fixit.aebs.AEBS;
+
 /**
  * 
  * 
@@ -9,13 +11,14 @@ package com.fixit.car.sensors;
 public class Lidar implements DistanceSensor {
 
     @Override
-    public void sendToAEBS() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void sendToAEBS(SensorType sensor, Double data) {
+        AEBS.evaluateBraking(sensor, data);
     }
 
     @Override
-    public Double readData(SensorType sensor, Double data, Weather weather) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public int readData(SensorType sensor, Double data, Weather weather) {
+        sendToAEBS(sensor, data);
+        return 1;
     }
     
 }

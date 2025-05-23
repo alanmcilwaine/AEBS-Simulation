@@ -1,5 +1,7 @@
 package com.fixit.car.sensors;
 
+import com.fixit.controlsignal.ControlSignals;
+
 /**
  * 
  * 
@@ -9,18 +11,20 @@ package com.fixit.car.sensors;
 public class WheelSpeed implements SpeedSensor {
 
     @Override
-    public void sendToControlSignal() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void sendToControlSignal(SensorType sensor, Double data, Weather weather) {
+        ControlSignals.processSensorData(sensor, data, weather);
     }
 
     @Override
-    public void sendToInterface() {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public void sendToInterface(Double data) {
+        UserInterface.recieveSpeed(data);
     }
 
     @Override
-    public Double readData(SensorType sensor, Double data, Weather weather) {
-        throw new UnsupportedOperationException("Not supported yet.");
+    public int readData(SensorType sensor, Double data, Weather weather) {
+        sendToControlSignal(sensor, data, weather);
+        sendToInterface(data);
+        return 1;
     }
     
 }

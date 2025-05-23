@@ -11,6 +11,12 @@ public class AEBS implements AutoBrakeSystem {
    */
   private double brakeValue = 0;
 
+  private boolean distanceRecieved = false;
+  private boolean speedRecieved = false;
+
+  private double distance = 0;
+  private double speed = 0;
+
   /**
    * Returns the amount of brakes needed for the car.
    * Gives a 0 if no brake should be applied.
@@ -35,11 +41,14 @@ public class AEBS implements AutoBrakeSystem {
 
     // Determines whether or braking should happen or not
     // This is to save resources on the calculations
+
     if (distanceData >= determineThreshold(wheelSpeed)) {
       brakeValue = determineBrakes(distanceData, wheelSpeed);
     } else {
       brakeValue = 0;
     }
+
+
   }
 
   /**
@@ -70,7 +79,27 @@ public class AEBS implements AutoBrakeSystem {
    */
   private double determineBrakes(final double distanceData, final double wheelSpeed) {
     double brakingPower = wheelSpeed - distanceData;
-
     return 0;
+  }
+
+  public void recieveSpeedAEBS(final double distanceData) {
+    this.distance = distanceData;
+    distanceRecieved = true;
+  }
+
+  public void recieveDistanceAEBS(final double wheelSpeed) {
+    this.speed = wheelSpeed;
+    distanceRecieved = true;
+  }
+
+  public void tick() {
+i
+    // if the distance and speed has been recieved
+    if (distanceRecieved && speedRecieved) {
+      evaluateBraking();
+
+      distanceRecieved = false;
+      speedRecieved = false;
+    }
   }
 }

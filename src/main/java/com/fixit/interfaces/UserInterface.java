@@ -1,4 +1,6 @@
 package com.fixit.interfaces;
+import com.fixit.interfaces.Display;
+
 
 /**
  * UI class holds functionality with the UI.
@@ -40,14 +42,15 @@ public class UserInterface implements Interface {
 
   /**
    * receiveSpeed method gets called by sensor
-   * package and then displays speed to the user.
+   * package and then calls the Display class speedToShow to
+   * display the speed to user.
    *
    * @param speed is the unit of measurement (kph) that
    * will be displayed to the user.
    */
   @Override
   public void receiveSpeed(final double speed) {
-    System.out.println(speed);    //placeholder logic to show user speed
+    Display.speedToShow(speed);    //calls speedToShow to add speed to the display
   }
 
   /**

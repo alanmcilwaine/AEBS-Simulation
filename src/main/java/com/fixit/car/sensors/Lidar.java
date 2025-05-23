@@ -1,6 +1,7 @@
 package com.fixit.car.sensors;
 
 import com.fixit.aebs.AEBS;
+import com.fixit.simulation.Weather;
 
 /**
  * 
@@ -11,13 +12,13 @@ import com.fixit.aebs.AEBS;
 public class Lidar implements DistanceSensor {
 
     @Override
-    public void sendToAEBS(SensorType sensor, Double data) {
-        AEBS.evaluateBraking(sensor, data);
+    public void sendToAEBS(SensorType sensor, Double data, Weather weather) {
+        AEBS.receiveDistance(data);
     }
 
     @Override
     public int readData(SensorType sensor, Double data, Weather weather) {
-        sendToAEBS(sensor, data);
+        sendToAEBS(sensor, data, weather);
         return 1;
     }
     

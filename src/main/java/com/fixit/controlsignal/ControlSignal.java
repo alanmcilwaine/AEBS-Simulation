@@ -9,7 +9,7 @@ interface ControlSignal {
    * @param sensor The car sensor of interest, that holds the data.
    * @param power The brake power to apply to the car.
    */
-  void processSensorData(SensorType sensor, double power);
+  void processSensorData(final SensorType sensor, final double power);
 
   /**
    * Processes user input.
@@ -17,7 +17,7 @@ interface ControlSignal {
    * @param action The action that the car brakes will take.
    * @param power The brake power to apply to the car.
    */
-  void processUserInput(Action action, double power);
+  void processUserInput(final Action action, final double power);
 
   /** Activates the Anti-lock Brake system. */
   default void triggerAntiLockBrake() {

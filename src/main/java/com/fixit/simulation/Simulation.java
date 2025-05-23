@@ -19,8 +19,7 @@ public class Simulation {
    * Runs the simulation.
    */
   private void run() {
-    ReadSimulationFile file = new ReadSimulationFile(
-        "src/main/java/com/fixit/simulation/testdata.txt");
+    ReadSimulationFile file = new ReadSimulationFile("simulationData/testdata.txt");
     file.readData();
     Car car = Car.instance();
 

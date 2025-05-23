@@ -19,7 +19,7 @@ public class WheelSpeed implements SpeedSensor {
     }
 
     @Override
-    public Double readData(SensorType sensor, Double data) {
+    public Double readData(SensorType sensor, Double data, Weather weather) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

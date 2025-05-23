@@ -14,7 +14,7 @@ public class Radar implements DistanceSensor {
     }
 
     @Override
-    public Double readData(SensorType sensor, Double data) {
+    public Double readData(SensorType sensor, Double data, Weather weather) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     

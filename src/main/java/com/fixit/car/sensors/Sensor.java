@@ -1,6 +1,6 @@
 package com.fixit.car.sensors;
 
-//import com.fixit.simulation.Weather;
+import com.fixit.simulation.Weather;
 
 /**
  * 
@@ -16,5 +16,5 @@ public interface Sensor {
      * @param data
      * @return
      */
-  Double readData(SensorType sensor, Double data/*, Weather weather*/);
+  Double readData(SensorType sensor, Double data, Weather weather);
 }

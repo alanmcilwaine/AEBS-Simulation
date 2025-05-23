@@ -25,8 +25,7 @@ public interface Interface {
    *
    * @param warning is the warning object that gets passed from ControlSignal that gets displayed to the user.
    */
-  static void receiveWarning(String warning)  //Object type
-  {
+  static void receiveWarning(String warning) {
 
   }
 }

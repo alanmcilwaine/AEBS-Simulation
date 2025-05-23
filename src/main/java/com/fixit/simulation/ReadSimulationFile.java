@@ -1,9 +1,10 @@
 package com.fixit.simulation;
 
+
+import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.Files;
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,17 +14,30 @@ import java.util.List;
  * @author Ming Bao
  */
 public class ReadSimulationFile {
+  /**
+   * 2D array for storing sensor data. Inner array should have only 3 elements.
+   * e.g:
+   * [[0, 0, 0]
+   *  [1, 1, 1]
+   *  [2, 2, 2]]
+   */
   private List<List<Double>> sensorData;
+  /**
+   * Weather enum for setting the weather of the simulation.
+   */
   private Weather weather;
-  private Path filePath;
+  /**
+   * Path to the simulation data file.
+   */
+  private final Path filePath;
 
   /**
    * Constructs a ReadSimulationFile object with the path to a datafile.
    *
-   * @param filePath The path of the datafile
+   * @param path The path of the datafile
    */
-  public ReadSimulationFile(String filePath) {
-    this.filePath = Paths.get(filePath);
+  public ReadSimulationFile(final String path) {
+    this.filePath = Paths.get(path);
   }
 
   /**
@@ -33,16 +47,14 @@ public class ReadSimulationFile {
   public void readData() {
     try {
       List<String> content = Files.readAllLines(filePath);
-      content.removeIf(e -> e.isEmpty());
+      content.removeIf(String::isEmpty);
       setWeather(content.removeFirst());
 
       this.sensorData = content.stream()
-          .map((c) -> {
-            return Arrays.asList(c.split(" "))
-                .stream()
-                .map(Double::parseDouble)
-                .toList();
-          })
+          .map(c -> Arrays
+                  .stream(c.split(" "))
+                  .map(Double::parseDouble)
+                  .toList())
           .toList();
     } catch (IOException e) {
       throw new Error("Error reading file");
@@ -56,10 +68,10 @@ public class ReadSimulationFile {
    * @throws AssertionError if the string is empty or of the string
    *                        is not one of the defined weather.
    */
-  private void setWeather(String w) {
+  private void setWeather(final String w) {
     assert !w.isEmpty() : "weather cannot be empty";
-    w = w.toLowerCase();
-    switch (w) {
+    String lowerW = w.toLowerCase();
+    switch (lowerW) {
       case "sunny":
         this.weather = Weather.SUNNY;
         break;

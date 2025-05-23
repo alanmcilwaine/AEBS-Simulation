@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class ReadSimulationFile {
   private List<List<Double>> sensorData;
-  private String weather;
+  private Weather weather;
   private Path filePath;
 
   /**
@@ -34,7 +34,8 @@ public class ReadSimulationFile {
     try {
       List<String> content = Files.readAllLines(filePath);
       content.removeIf(e -> e.isEmpty());
-      this.weather = content.remove(0);
+      setWeather(content.removeFirst());
+
       this.sensorData = content.stream()
           .map((c) -> {
             return Arrays.asList(c.split(" "))
@@ -49,18 +50,44 @@ public class ReadSimulationFile {
   }
 
   /**
-   * Getter for weather variable
+   * Inputs a weather string and turns it into a weather enum and stores it.
    *
-   * @return weather
+   * @param w The weather string.
+   * @throws AssertionError if the string is empty or of the string
+   *                        is not one of the defined weather.
    */
-  public String weather() {
+  private void setWeather(String w) {
+    assert !w.isEmpty() : "weather cannot be empty";
+    w = w.toLowerCase();
+    switch (w) {
+      case "sunny":
+        this.weather = Weather.SUNNY;
+        break;
+      case "rainy":
+        this.weather = Weather.RAINY;
+        break;
+      case "FOGGY":
+        this.weather = Weather.FOGGY;
+        break;
+      default:
+        assert false : "Weather out of bounds";
+        break;
+    }
+  }
+
+  /**
+   * Getter for weather variable.
+   *
+   * @return weather.
+   */
+  public Weather weather() {
     return this.weather;
   }
 
   /**
-   * Getter for sensorData variable
+   * Getter for sensorData variable.
    *
-   * @return sensorData
+   * @return sensorData.
    */
   public List<List<Double>> sensorData() {
     return this.sensorData;

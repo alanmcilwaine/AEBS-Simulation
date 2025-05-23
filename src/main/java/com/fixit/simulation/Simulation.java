@@ -3,12 +3,11 @@ package com.fixit.simulation;
 import com.fixit.car.Car;
 import com.fixit.car.sensors.SensorType;
 import java.util.List;
-import java.lang.Thread;
 
 /**
- * Simulates the sensors of a car by send it data read from a file
+ * Simulates the sensors of a car by send it data read from a file.
  *
- * @author Ming Bao
+ * @author Ming Bao.
  */
 public class Simulation {
   public static void main(String[] args) {

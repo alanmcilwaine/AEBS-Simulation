@@ -3,23 +3,41 @@ package com.fixit.aebs;
 /**
  * The Automatic Emergency Braking System for vehicles. Would trigger a brake
  * signal to Control Signals if there are any hazards in front of the car.
- */
-public class AEBS implements AutoBrakeSystem {
+ **/
+final class AEBS implements AutoBrakeSystem {
 
-  /**
-   * the amount of brakes to send to control signal.
-   */
+  /* the amount of brakes to send to control signal. */
   private static double brakeValue = 0;
 
+  /* checks if the system has received distance and speed values from sensor */
   private static boolean distanceReceived = false;
   private static boolean speedReceived = false;
 
+  /* the distance and speed values themselves that were received */
   private static double distance = 0;
   private static double speed = 0;
 
+  /* the singular instance of AEBS that the car is using */
   private static final AEBS instance = new AEBS();
 
-  private AEBS() {}
+  /**
+   * Private constructor for the AEBS.
+   * It is private in order to ensure the singleton pattern.
+   */
+  private AEBS() {
+
+  }
+
+  /**
+   * Returns the only instance of AEBS to be used.
+   * There should only be one instance. Control Signal should
+   * call this method in order to access the braking values.
+   *
+   * @return the single instance of AEBS to be used.
+   */
+  public AEBS aebs() {
+    return instance;
+  }
 
   /**
    * Returns the amount of brakes needed for the car.
@@ -84,12 +102,24 @@ public class AEBS implements AutoBrakeSystem {
     return 0;
   }
 
+  /**
+   * Sends AEBS distance data of other obejcts on the road.
+   * This should only be used by the Sensors.
+   *
+   * @param distanceData the distance of the other objects from the vehicle.
+   */
   public static void receiveDistanceAEBS(final double distanceData) {
     distance = distanceData;
     distanceReceived = true;
     instance.tick();
   }
 
+  /**
+   * Sends AEBS speed data of the vehicle.
+   * This should only be used by the Sensors.
+   *
+   * @param wheelSpeed the speed of the vehicle itself
+   */
   public static void receiveSpeedAEBS(final double wheelSpeed) {
     speed = wheelSpeed;
     distanceReceived = true;

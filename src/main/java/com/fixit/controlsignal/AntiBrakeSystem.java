@@ -5,7 +5,8 @@ package com.fixit.controlsignal;
  * braking. This will occur if there is a sudden change in the wheel-speed.
  * (Determined by the Wheel-speed's deceleration.)
  */
-public class AntiBrakeSystem {
+public final class AntiBrakeSystem {
+
   /** The last recorded speed of the car's wheels. */
   private double oldWheelSpeed;
 
@@ -13,7 +14,34 @@ public class AntiBrakeSystem {
   private double brakePower;
 
   /** Determines when we don't want the brake to be applied. */
-  private boolean dontApplyBrake = false;
+  private boolean dontApplyBrake;
+
+  /**
+   * Creates an initialises an instance of the Anti-Brake System. As per the
+   * Singleton pattern, the method is private to ensure only one instance of
+   * the Anti-Brake system is created.
+   */
+  private AntiBrakeSystem() {
+    this.oldWheelSpeed = 0.0;
+    this.brakePower = 0.0;
+    this.dontApplyBrake = false;
+  }
+
+  /**
+   * To ensure the rest of the code can use the Anti-Brake System, a single
+   * instance of the class is created using the private constructor.
+   */
+  private static final AntiBrakeSystem ANTI_BRAKE_SYS = new AntiBrakeSystem();
+
+  /**
+   * The Singleton Anti-Brake System instance can be accessed through this
+   * method.
+   *
+   * @return The Anti-Brake System instance created.
+   */
+  public static AntiBrakeSystem abs() {
+    return ANTI_BRAKE_SYS;
+  }
 
   /**
    * Calculates the amount of change in the wheel-speed over time.

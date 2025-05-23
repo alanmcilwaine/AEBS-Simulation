@@ -23,7 +23,6 @@ public interface Vehicle {
    * @param sensor The specific sensor which will receive the data.
    * @param signal The stream of data for the sensor to interpret.
    * @param weather The weather pattern to be considered to make a decision.
-   * @return A return code, 1 meaning successful and 0 meaning error.
    */
-  int sensorInput(SensorType sensor, double signal, Weather weather);
+  void sensorInput(SensorType sensor, double signal, Weather weather);
 }

@@ -20,7 +20,7 @@ public class Simulation {
    */
   private void run() {
     ReadSimulationFile file = new ReadSimulationFile(
-            "src/main/java/com/fixit/simulation/testdata.txt");
+        "src/main/java/com/fixit/simulation/testdata.txt");
     file.readData();
     Car car = Car.instance();
 
@@ -29,7 +29,6 @@ public class Simulation {
         car.sensorInput(SensorType.LIDARLEFT, data.get(0), file.weather());
         car.sensorInput(SensorType.LIDARCENTRE, data.get(1), file.weather());
         car.sensorInput(SensorType.LIDARRIGHT, data.get(2), file.weather());
-
         Thread.sleep(SLEEPTIME);
       }
     } catch (InterruptedException e) {

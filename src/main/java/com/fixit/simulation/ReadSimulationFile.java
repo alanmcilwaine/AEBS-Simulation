@@ -66,7 +66,7 @@ public class ReadSimulationFile {
       case "rainy":
         this.weather = Weather.RAINY;
         break;
-      case "FOGGY":
+      case "foggy":
         this.weather = Weather.FOGGY;
         break;
       default:

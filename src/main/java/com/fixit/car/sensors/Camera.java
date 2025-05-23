@@ -1,5 +1,7 @@
 package com.fixit.car.sensors;
 
+import com.fixit.simulation.Weather;
+
 /**
  * 
  * 

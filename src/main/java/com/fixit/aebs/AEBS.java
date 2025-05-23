@@ -17,6 +17,8 @@ public class AEBS implements AutoBrakeSystem {
   private static double distance = 0;
   private static double speed = 0;
 
+  private static final AEBS instance = new AEBS();
+
   private AEBS() {}
 
   /**
@@ -60,7 +62,7 @@ public class AEBS implements AutoBrakeSystem {
    * @param wheelSpeed the speed of the wheel
    * @return the distance at which the vehicle should send brake
    */
-  private static double determineThreshold(final double wheelSpeed) {
+  private double determineThreshold(final double wheelSpeed) {
     // the average human reaction time is 0.25 seconds
     // for this purpose we will account for those who have
     // slower reaction times by increasing this value
@@ -82,19 +84,19 @@ public class AEBS implements AutoBrakeSystem {
     return 0;
   }
 
-  public static void receiveSpeedAEBS(final double distanceData) {
+  public static void receiveDistanceAEBS(final double distanceData) {
     distance = distanceData;
     distanceReceived = true;
-    tick();
+    instance.tick();
   }
 
-  public static void receiveDistanceAEBS(final double wheelSpeed) {
+  public static void receiveSpeedAEBS(final double wheelSpeed) {
     speed = wheelSpeed;
     distanceReceived = true;
-    tick();
+    instance.tick();
   }
 
-  private static void tick() {
+  private void tick() {
 
     // if the distance and speed has been received
     if (distanceReceived && speedReceived) {

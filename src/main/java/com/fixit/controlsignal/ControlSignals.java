@@ -2,12 +2,16 @@ package com.fixit.controlsignal;
 
 import com.fixit.car.sensors.SensorType;
 
+/**
+ * Signals that will be transmitted between the Automated Emergency Braking
+ * System, the sensors of the car, and the car itself.
+ */
 public final class ControlSignals implements ControlSignal {
   /** The current speed of the car. */
-  double speed;
+  private double speed;
 
   /** The current power of the brakes being applied. */
-  double brakePower;
+  private double brakePower;
 
   /**
    * Creates an instance of the Control Signals Class. As part of this,
@@ -31,7 +35,7 @@ public final class ControlSignals implements ControlSignal {
    *
    * @return The Control Signals instance created.
    */
-  public static ControlSignals cs(){
+  public static ControlSignals cs() {
     return CONTROL_SIGNALS;
   }
 

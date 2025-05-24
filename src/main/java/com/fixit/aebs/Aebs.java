@@ -4,27 +4,31 @@ package com.fixit.aebs;
  * The Automatic Emergency Braking System for vehicles. Would trigger a brake
  * signal to Control Signals if there are any hazards in front of the car.
  **/
-final class AEBS implements AutoBrakeSystem {
+final class Aebs implements AutoBrakeSystem {
 
   /** the amount of brakes to send to control signal. */
   private static double brakeValue = 0;
 
-  /** checks if the system has received distance and speed values from sensor. */
+  /** checks if the system has received distance values from sensor. */
   private static boolean distanceReceived = false;
+
+  /** checks if the system has received speed values from sensor. */
   private static boolean speedReceived = false;
 
-  /** the distance and speed values themselves that were received. */
+  /** the distance that was received. */
   private static double distanceData = 0;
+
+  /** the distance that was received. */
   private static double wheelSpeed = 0;
 
   /** the singular instance of AEBS that the car is using. */
-  private static final AEBS instance = new AEBS();
+  private static final Aebs INSTANCE = new Aebs();
 
   /**
    * Private constructor for the AEBS.
    * It is private in order to ensure the singleton pattern.
    */
-  private AEBS() {
+  private Aebs() {
 
   }
 
@@ -36,15 +40,15 @@ final class AEBS implements AutoBrakeSystem {
    * @return the single instance of AEBS to be used.
    */
   @Override
-  public AEBS instance() {
-    return instance;
+  public Aebs instance() {
+    return INSTANCE;
   }
 
   /**
    * Returns the amount of brakes needed for the car.
    * Gives a 0 if no brake should be applied.
-   s*
-   * @return returns the amount of brake value needed for the car
+   *
+   * @return returns the amount of brake value needed for the car.
    */
   public double getBrakeValue() {
     return brakeValue;
@@ -96,15 +100,15 @@ final class AEBS implements AutoBrakeSystem {
   }
 
   /**
-   * Sends AEBS distance data of other obejcts on the road.
+   * Sends AEBS distance data of other objects on the road.
    * This should only be used by the Sensors.
    *
-   * @param distanceDataReceived the distance of the other objects from the vehicle.
+   * @param distanceDataReceived the distance of other objects from vehicle.
    */
-  public static void receiveDistanceAEBS(final double distanceDataReceived) {
+  public static void receiveDistanceAebs(final double distanceDataReceived) {
     distanceData = distanceDataReceived;
     distanceReceived = true;
-    instance.tick();
+    INSTANCE.tick();
   }
 
   /**
@@ -113,10 +117,10 @@ final class AEBS implements AutoBrakeSystem {
    *
    * @param wheelSpeedReceived the speed of the vehicle itself
    */
-  public static void receiveSpeedAEBS(final double wheelSpeedReceived) {
+  public static void receiveSpeedAebs(final double wheelSpeedReceived) {
     wheelSpeed = wheelSpeedReceived;
     speedReceived = true;
-    instance.tick();
+    INSTANCE.tick();
   }
 
   /**

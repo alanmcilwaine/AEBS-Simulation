@@ -20,13 +20,13 @@ import javax.swing.Timer;
 public final class Car implements Vehicle {
 
   /**
+   * Upper bound in for loops.
+   */
+  public static final int UPPERBOUND = 10;
+  /**
    * Car Interface.
    */
   private final Interface ui = new UserInterface();
-  /**
-   * Control signals in the car to determine whether to brake.
-   */
-  private final ControlSignals controlSignal = ControlSignals.cs();
   /**
    * 3 radar sensors in the car.
    */
@@ -45,8 +45,6 @@ public final class Car implements Vehicle {
   private final List<Camera> cameraSensors = new ArrayList<>();
 
   private Car() {
-    assert controlSignal != null;
-
     radarSensors.addAll(List.of(new Radar(), new Radar(), new Radar()));
     lidarSensors.addAll(List.of(new Lidar(), new Lidar(), new Lidar()));
     cameraSensors.addAll(List.of(new Camera(), new Camera(), new Camera()));
@@ -83,20 +81,36 @@ public final class Car implements Vehicle {
     assert signal >= 0;
 
     switch (sensor) {
-      case SensorType.RADAR ->
-        radarSensors.forEach(s -> s.readData(sensor, signal, weather));
-      case SensorType.LIDARCENTRE ->
+      case SensorType.RADAR -> {
+        for (int i = 0; i < radarSensors.size() && i < UPPERBOUND; i++) {
+          radarSensors.get(i).readData(sensor, signal, weather);
+        }
+      }
+      case SensorType.LIDARCENTRE -> {
+        assert lidarSensors.get(1) != null;
         lidarSensors.get(1).readData(sensor, signal, weather);
-      case SensorType.LIDARLEFT ->
-        lidarSensors.get(0).readData(sensor, signal, weather);
-      case SensorType.LIDARRIGHT ->
+      }
+      case SensorType.LIDARLEFT -> {
+        assert lidarSensors.getFirst() != null;
+        lidarSensors.getFirst().readData(sensor, signal, weather);
+      }
+      case SensorType.LIDARRIGHT -> {
+        assert lidarSensors.get(2) != null;
         lidarSensors.get(2).readData(sensor, signal, weather);
-      case SensorType.CAMERA ->
-        cameraSensors.forEach(s -> s.readData(sensor, signal, weather));
-      case SensorType.WHEELSPEEDLEFT ->
-        wheelSpeedSensors.get(0).readData(sensor, signal, weather);
-      case SensorType.WHEELSPEEDRIGHT ->
+      }
+      case SensorType.CAMERA -> {
+        for (int i = 0; i < cameraSensors.size() && i < UPPERBOUND; i++) {
+          cameraSensors.get(i).readData(sensor, signal, weather);
+        }
+      }
+      case SensorType.WHEELSPEEDLEFT -> {
+        assert wheelSpeedSensors.getFirst() != null;
+        wheelSpeedSensors.getFirst().readData(sensor, signal, weather);
+      }
+      case SensorType.WHEELSPEEDRIGHT -> {
+        assert wheelSpeedSensors.get(1) != null;
         wheelSpeedSensors.get(1).readData(sensor, signal, weather);
+      }
       default -> throw new IllegalArgumentException("" + sensor);
     }
   }

@@ -12,7 +12,7 @@ public class UserInterface implements Interface {
    * Returns void, but tells the user the state
    * of the system (on or off)
    */
-  public void autoSystemToggle() {
+  public static void autoSystemToggle() {
     //call CS to toggle Automatic Emergency Brake System
   }
   /**
@@ -23,7 +23,7 @@ public class UserInterface implements Interface {
    * @param brakePower The amount of power to send to the brakes.
    */
 
-  public void applyBrake(final double brakePower) {
+  public static void applyBrake(final double brakePower) {
     //call CS to apply brake
   }
   /**
@@ -34,7 +34,7 @@ public class UserInterface implements Interface {
    * @param throttlePower the amount of throttle to send to car.
    */
 
-  public void applyThrottle(final double throttlePower) {
+  public static void applyThrottle(final double throttlePower) {
     //call CS to apply throttle
   }
 
@@ -45,7 +45,7 @@ public class UserInterface implements Interface {
    * @param speed is the unit of measurement (kph) that
    * will be displayed to the user.
    */
-  public void receiveSpeed(final double speed) {
+  public static void receiveSpeed(final double speed) {
     System.out.println(speed);    //placeholder logic to show user speed
   }
 
@@ -58,7 +58,7 @@ public class UserInterface implements Interface {
    * @param warning is the warning object that gets passed from ControlSignal
    * that gets displayed to the user.
    */
-  public void receiveWarning(final String warning) {
+  public static void receiveWarning(final String warning) {
     System.out.println(warning);
     //placeholder logic to show user warning, not sure what data type yet.
   }

@@ -69,15 +69,21 @@ public final class Aebs {
 
     final double reactTime = 0.35;
     final double brakeThreshold = wheelSpeed * reactTime;
+    final double brakeMargin = 1.10;
+    final double percentageWrap = 100;
+
     // Determines whether or braking should happen.
     if (distanceData < brakeThreshold) {
-      // taken from vf^2 = vi^2 + 2ad
-      brakeValue = (wheelSpeed * wheelSpeed) / (2 * distanceData);
+      // taken from vf^2 = vi^2 + 2ad. find deceleration and add error margin.
+      double deceleration = (wheelSpeed * wheelSpeed) / (2 * distanceData);
+      deceleration *= brakeMargin;
+
+      // assert brake value non-negative and turn it into percentage.
       assert brakeValue >= 0;
-      final double brakeMargin = 1.10;
-      brakeValue = brakeValue * brakeMargin;
+      brakeValue = (deceleration / wheelSpeed) * percentageWrap;
       return;
     }
+    // if there is no need to brake then it's just 0
     brakeValue = 0;
   }
 

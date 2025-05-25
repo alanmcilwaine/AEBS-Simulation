@@ -21,6 +21,9 @@ public final class Aebs {
   /** the distance that was received, measured in m/s. */
   private static double wheelSpeed = 0;
 
+  /** the distance sensitivity of the aebs, set to high on default. */
+  private static Sensitivity sens = Sensitivity.HIGH;
+
   /** the singular instance of AEBS that the car is using. */
   private static final Aebs INSTANCE = new Aebs();
 
@@ -46,6 +49,16 @@ public final class Aebs {
   }
 
   /**
+   * Sets the AEBS sensitivity.
+   *
+   * @param sensitivity the sensitivity level to set.
+   */
+  public void setSensitivity(Sensitivity sensitivity) {
+    this.sens = sensitivity;
+
+  }
+
+  /**
    * Returns the amount of brakes needed for the car.
    * Gives a 0 if no brake should be applied.
    *
@@ -67,7 +80,9 @@ public final class Aebs {
     assert distanceData >= 0;
     assert wheelSpeed >= 0;
 
-    final double reactTime = 0.35;
+    // human reaction time is 0.25 seconds, which is the lowest
+    // sensitivity level aside from NONE.
+    final double reactTime = sens.sensitivity();
     final double brakeThreshold = wheelSpeed * reactTime;
     final double brakeMargin = 1.10;
     final double percentageWrap = 100;

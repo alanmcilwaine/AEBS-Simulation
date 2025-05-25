@@ -5,9 +5,7 @@ import static com.fixit.interfaces.Display.errorsToShow;
 import static com.fixit.interfaces.Display.speedToShow;
 
 import com.fixit.aebs.Aebs;
-import com.fixit.aebs.Aebs.*;
 import com.fixit.aebs.Sensitivity;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -19,23 +17,32 @@ import java.awt.event.KeyListener;
  */
 public class UserInterface implements Interface, KeyListener {
   /**
-   * autoSystemToggle method calls controlSignal to enable or disable
-   * the Automatic Emergency Braking system. Returns void, but tells the
-   * user the state of the system (on or off)
+   * throttlePower is the variable that keeps the value of how
+   * much throttle to apply.
    */
-  public static void autoSystemToggle() {
-    //call CS to toggle Automatic Emergency Brake System
-  }
+  private static double throttle = 0;
+
+  /**
+   * brakePower is the variable that keeps the value of how
+   * much throttle to apply.
+   */
+  private static double brake = 0;
+
+  /**
+   * INCREMENT is the value stored for applying more
+   * or less brakes or throttle.
+   */
+  private static final double INCREMENT = 0.1;
 
   /**
    * applyBrake method calls controlSignal to apply the amount of
-   * brakes specified by the driver. Returns void
+   * throttle specified by the driver to speed up.
+   * Returns void.
    *
-   * @param brakePower The amount of power to send to the brakes.
+   * @param brakePower the amount of brake to send to car.
    */
-
   public static void applyBrake(final double brakePower) {
-    //call CS to apply brake
+    //TODO: call CS to apply brake
   }
 
   /**
@@ -102,15 +109,43 @@ public class UserInterface implements Interface, KeyListener {
   public void keyPressed(final KeyEvent e) {
     if (e.getKeyCode() == KeyEvent.VK_0) {
       Aebs.instance().setSensitivity(Sensitivity.NONE);
+      receiveWarning(" AEBS Disabled ");
     }
     if (e.getKeyCode() == KeyEvent.VK_1) {
       Aebs.instance().setSensitivity(Sensitivity.LOW);
+      receiveWarning(" AEBS set to Low ");
     }
     if (e.getKeyCode() == KeyEvent.VK_2) {
       Aebs.instance().setSensitivity(Sensitivity.MEDIUM);
+      receiveWarning(" AEBS set to Medium ");
     }
     if (e.getKeyCode() == KeyEvent.VK_3) {
       Aebs.instance().setSensitivity(Sensitivity.HIGH);
+      receiveWarning(" AEBS set to High ");
+    }
+    if (e.getKeyCode() == KeyEvent.VK_UP) {
+      assert throttle <= 1;
+      assert throttle >= 0;
+      throttle += INCREMENT;
+      applyThrottle(throttle);
+    }
+    if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+      assert throttle <= 1;
+      assert throttle >= 0;
+      throttle -= INCREMENT;
+      applyThrottle(throttle);
+    }
+    if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+      assert brake <= 1;
+      assert brake >= 0;
+      brake += INCREMENT;
+      applyBrake(brake);
+    }
+    if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+      assert brake <= 1;
+      assert brake >= 0;
+      brake -= INCREMENT;
+      applyBrake(brake);
     }
   }
 

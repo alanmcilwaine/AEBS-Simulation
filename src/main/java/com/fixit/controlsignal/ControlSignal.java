@@ -25,9 +25,6 @@ interface ControlSignal {
 
   /** Activates the Anti-lock Brake system. */
   default void triggerAntiLockBrake() {
-    /* NB: Placeholder values are used here. */
+    /* todo: Implement if time allows. */
   }
-
-  /** Make an action! (Not sure what it does at this stage). */
-  void makeAnAction();
 }

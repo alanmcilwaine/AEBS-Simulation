@@ -63,8 +63,4 @@ public final class ControlSignals implements ControlSignal {
     assert action != null;
     assert bPower >= 0;
   }
-
-  public void makeAnAction() {
-
-  }
 }

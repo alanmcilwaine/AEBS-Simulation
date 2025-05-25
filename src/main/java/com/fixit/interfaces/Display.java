@@ -4,7 +4,7 @@ package com.fixit.interfaces;
  * Display Class will store all the interfaces required to show
  * the user the relevant data that it needs to see.
  */
-public class Display {
+class Display {
   /**
    *  speed variable is what will be used to display to driver.
    */
@@ -21,12 +21,12 @@ public class Display {
   }
 
   /**
-   *  Takes in the errors to show to eventually show the user
+   *  Takes in the errors to show to eventually show the user.
    *
    * @param error does thingy
    */
   public static void errorsToShow(final String error) {
-
+    //TODO: will add to list of errors to show to eventually display
   }
 
   /**

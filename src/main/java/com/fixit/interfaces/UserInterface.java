@@ -1,13 +1,16 @@
 package com.fixit.interfaces;
 
-import static com.fixit.interfaces.Display.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import static com.fixit.interfaces.Display.speedToShow;
 
 /**
  * UI class holds functionality with the UI.
  * Contains methods to trigger brakes, and
  * disable the Automatic Braking system
  */
-public class UserInterface implements Interface {
+public class UserInterface implements Interface, KeyListener {
   /**
    * autoSystemToggle method calls controlSignal to
    * enable or disable the Automatic Emergency Braking system.
@@ -15,7 +18,7 @@ public class UserInterface implements Interface {
    * of the system (on or off)
    */
   public void autoSystemToggle() {
-    //call CS to toggle Automatic Emergency Brake System
+    //TODO: call CS to toggle Automatic Emergency Brake System
   }
   /**
    * applyBrake method calls controlSignal to apply the amount
@@ -26,7 +29,7 @@ public class UserInterface implements Interface {
    */
 
   public void applyBrake(final double brakePower) {
-    //call CS to apply brake
+    //TODO: call CS to apply brake
   }
   /**
    * applyThrottle method calls controlSignal to apply the amount
@@ -37,7 +40,7 @@ public class UserInterface implements Interface {
    */
 
   public void applyThrottle(final double throttlePower) {
-    //call CS to apply throttle
+    //TODO: call CS to apply throttle
   }
 
   /**
@@ -51,7 +54,7 @@ public class UserInterface implements Interface {
 
   public void receiveSpeed(final double speed) {
     speedToShow(speed);
-    //calls speedToShow to add speed to the display
+    //TODO: call speedToShow to add speed to the display
   }
 
   /**
@@ -74,5 +77,38 @@ public class UserInterface implements Interface {
    */
   static void tick() {
     Display.display();
+  }
+
+  /**
+   * Invoked when a key has been typed. See the class description
+   * for {@link KeyEvent} for a definition of a key typed event.
+   *
+   * @param e the event to be processed
+   */
+  @Override
+  public void keyTyped(KeyEvent e) {
+
+  }
+
+  /**
+   * Invoked when a key has been pressed. See the class description
+   * for {@link KeyEvent} for a definition of a key pressed event.
+   *
+   * @param e the event to be processed
+   */
+  @Override
+  public void keyPressed(KeyEvent e) {
+
+  }
+
+  /**
+   * Invoked when a key has been released. See the class description
+   * for {@link KeyEvent} for a definition of a key released event.
+   *
+   * @param e the event to be processed
+   */
+  @Override
+  public void keyReleased(KeyEvent e) {
+
   }
 }

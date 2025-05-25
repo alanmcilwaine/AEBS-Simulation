@@ -4,6 +4,10 @@ import static com.fixit.interfaces.Display.display;
 import static com.fixit.interfaces.Display.errorsToShow;
 import static com.fixit.interfaces.Display.speedToShow;
 
+import com.fixit.aebs.Aebs;
+import com.fixit.aebs.Aebs.*;
+import com.fixit.aebs.Sensitivity;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -13,7 +17,7 @@ import java.awt.event.KeyListener;
  * Contains methods to trigger brakes, and
  * disable the Automatic Braking system
  */
-public class UserInterface implements Interface {
+public class UserInterface implements Interface, KeyListener {
   /**
    * autoSystemToggle method calls controlSignal to enable or disable
    * the Automatic Emergency Braking system. Returns void, but tells the
@@ -96,7 +100,18 @@ public class UserInterface implements Interface {
    */
   @Override
   public void keyPressed(final KeyEvent e) {
-
+    if (e.getKeyCode() == KeyEvent.VK_0) {
+      Aebs.instance().setSensitivity(Sensitivity.NONE);
+    }
+    if (e.getKeyCode() == KeyEvent.VK_1) {
+      Aebs.instance().setSensitivity(Sensitivity.LOW);
+    }
+    if (e.getKeyCode() == KeyEvent.VK_2) {
+      Aebs.instance().setSensitivity(Sensitivity.MEDIUM);
+    }
+    if (e.getKeyCode() == KeyEvent.VK_3) {
+      Aebs.instance().setSensitivity(Sensitivity.HIGH);
+    }
   }
 
   /**

@@ -74,7 +74,6 @@ public final class Aebs {
       // taken from vf^2 = vi^2 + 2ad
       brakeValue = (wheelSpeed * wheelSpeed) / (2 * distanceData);
       assert brakeValue >= 0;
-
       final double brakeMargin = 1.10;
       brakeValue = brakeValue * brakeMargin;
       return;

@@ -52,6 +52,7 @@ public final class Aebs {
    * @return returns the amount of brake value needed for the car.
    */
   public double getBrakeValue() {
+    assert brakeValue >= 0;
     double brakeReturn = brakeValue;
     // reset the value back to zero once it has been sent.
     brakeValue = 0;
@@ -65,12 +66,14 @@ public final class Aebs {
   private void evaluateBraking() {
     assert distanceData >= 0;
     assert wheelSpeed >= 0;
+
     final double reactTime = 0.35;
     final double brakeThreshold = wheelSpeed * reactTime;
     // Determines whether or braking should happen.
     if (distanceData < brakeThreshold) {
       // taken from vf^2 = vi^2 + 2ad
       brakeValue = (wheelSpeed * wheelSpeed) / (2 * distanceData);
+      assert brakeValue >= 0;
 
       final double brakeMargin = 1.10;
       brakeValue = brakeValue * brakeMargin;

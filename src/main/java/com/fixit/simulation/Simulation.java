@@ -2,6 +2,8 @@ package com.fixit.simulation;
 
 import com.fixit.car.Car;
 import com.fixit.car.sensors.SensorType;
+
+import java.net.SocketTimeoutException;
 import java.util.List;
 
 /**
@@ -25,7 +27,7 @@ public class Simulation {
 
     try {
       for (List<Double> data : file.sensorData()) {
-        data.forEach(System.out::print);
+        data.forEach(a -> System.out.print(a + " "));
         System.out.println();
         car.sensorInput(SensorType.LIDARLEFT, data.get(0), file.weather());
         car.sensorInput(SensorType.LIDARCENTRE, data.get(1), file.weather());
@@ -35,6 +37,7 @@ public class Simulation {
     } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }
+    System.out.println("Simulation Ended");
   }
 
   /**

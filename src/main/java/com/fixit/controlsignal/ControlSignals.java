@@ -39,9 +39,18 @@ public final class ControlSignals implements ControlSignal {
     return CONTROL_SIGNALS;
   }
 
-  public void processSensorData(final SensorType sensor, final double power) {
-    assert sensor != null;
-    assert power >= 0;
+  public void processSensorData(final SensorType sensorType, final double wheelSpeed) {
+    assert sensorType != null;
+    assert wheelSpeed >= 0;
+
+    switch (sensorType){
+      case SensorType.WHEELSPEEDLEFT:
+      case SensorType.WHEELSPEEDRIGHT:
+
+        //Car.instance().speed(data);
+
+        break;
+    }
   }
 
   public void processUserInput(final Action action, final double power) {

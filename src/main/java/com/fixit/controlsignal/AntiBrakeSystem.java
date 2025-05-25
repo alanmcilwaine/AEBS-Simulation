@@ -17,9 +17,11 @@ public final class AntiBrakeSystem {
   private boolean dontApplyBrake;
 
   /**
-   * Creates an initialises an instance of the Anti-Brake System. As per the
-   * Singleton pattern, the method is private to ensure only one instance of
-   * the Anti-Brake system is created.
+   * Creates an instance of the Anti-Brake System. This involves initialising
+   * all variables (Old Wheel Speed and Brake Power) to zero, and the "Don't
+   * Apply Brake" boolean to zero. As per the Singleton pattern, the
+   * constructor is private to ensure only one instance of the Anti-Brake
+   * system is created.
    */
   private AntiBrakeSystem() {
     this.oldWheelSpeed = 0.0;

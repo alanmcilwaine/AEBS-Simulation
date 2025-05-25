@@ -9,10 +9,12 @@ final class Aebs {
   /** the amount of brakes to send to control signal. */
   private static double brakeValue = 0;
 
-  /** checks if the system has received distance values from sensor. */
+  /** checks if the system has received distance values from sensor.
+   * it is measured in km */
   private static boolean distanceReceived = false;
 
-  /** checks if the system has received speed values from sensor. */
+  /** checks if the system has received speed values from sensor.
+   * it is measured in km/h */
   private static boolean speedReceived = false;
 
   /** the distance that was received. */
@@ -29,7 +31,9 @@ final class Aebs {
    * It is private in order to ensure the singleton pattern.
    */
   private Aebs() {
-
+    assert brakeValue == 0;
+    assert !distanceReceived;
+    assert !speedReceived;
   }
 
   /**
@@ -50,7 +54,10 @@ final class Aebs {
    * @return returns the amount of brake value needed for the car.
    */
   public double getBrakeValue() {
-    return brakeValue;
+    double brakeReturn = brakeValue;
+    // reset the value back to zero once it has been sent.
+    brakeValue = 0;
+    return brakeReturn;
   }
 
   /**
@@ -58,48 +65,32 @@ final class Aebs {
    * Based on the distance between the vehicle and the road hazards.
    */
   private void evaluateBraking() {
-
     // Determines whether or braking should happen or not
-    // This is to save resources on the calculations
     if (distanceData >= determineThreshold()) {
-      brakeValue = determineBrakes();
-    } else {
-      brakeValue = 0;
+      // taken from vf^2 = vi^2 + 2ad
+      brakeValue = (wheelSpeed * wheelSpeed) / (2 * distanceData);
+      return;
     }
-
+    brakeValue = 0;
   }
 
   /**
    * Determines the distance threshold for the brakes.
    * This threshold reflects the risk of the collision.
-   * Calculates via:
-   * Distance = Vehicle Speed * ReactionTime
    *
    * @return the distance at which the vehicle should send brake
    */
   private double determineThreshold() {
     // the average human reaction time is 0.25 seconds
-    // for this purpose we will account for those who have
-    // slower reaction times by increasing this value
+    // for this purpose we will account for slower reaction time
     final double reactTime = 0.35;
-
-    return wheelSpeed * reactTime;
-  }
-
-  /**
-   * Determines how much the vehicle should brake.
-   * Is calculated with the distance of other objects and vehicle wheel speed.
-   *
-   * @return returns how much braking should be given
-   */
-  private static double determineBrakes() {
-    double brakingPower = wheelSpeed - distanceData;
-    return 0;
+    final double conversion = 3.6;
+    return (wheelSpeed / conversion) * reactTime;
   }
 
   /**
    * Sends AEBS distance data of other objects on the road.
-   * This should only be used by the Sensors.
+   * This should only be used by the Sensors. Calls tick().
    *
    * @param distanceDataReceived the distance of other objects from vehicle.
    */
@@ -111,7 +102,7 @@ final class Aebs {
 
   /**
    * Sends AEBS speed data of the vehicle.
-   * This should only be used by the Sensors.
+   * This should only be used by the Sensors. Calls tick().
    *
    * @param wheelSpeedReceived the speed of the vehicle itself
    */
@@ -123,19 +114,14 @@ final class Aebs {
 
   /**
    * This ticks the AEBS to process the information that has been received.
-   * This is called by the methods receiveSpeedAEBS and
-   * receiveDistanceAEBS. Should only do something when
-   * both data has been gathered.
+   * Should only do something when both data has been gathered.
    */
   private void tick() {
-
     // if the distance and speed has been received
     if (distanceReceived && speedReceived) {
-
       evaluateBraking();
       distanceReceived = false;
       speedReceived = false;
     }
-
   }
 }

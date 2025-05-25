@@ -1,0 +1,6 @@
+com/fixit/car/sensors/Sensor.class
+com/fixit/car/sensors/SensorType.class
+com/fixit/simulation/Weather.class
+com/fixit/car/sensors/SpeedSensor.class
+com/fixit/aebs/AutoBrakeSystem.class
+com/fixit/car/sensors/DistanceSensor.class

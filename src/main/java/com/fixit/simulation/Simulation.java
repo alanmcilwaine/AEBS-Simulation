@@ -2,8 +2,6 @@ package com.fixit.simulation;
 
 import com.fixit.car.Car;
 import com.fixit.car.sensors.SensorType;
-
-import java.net.SocketTimeoutException;
 import java.util.List;
 
 /**
@@ -21,7 +19,8 @@ public class Simulation {
    * Runs the simulation.
    */
   private void run() {
-    ReadSimulationFile file = new ReadSimulationFile("simulationData/normal.txt");
+    ReadSimulationFile file = new ReadSimulationFile(
+            "simulationData/normal.txt");
     file.readData();
     Car car = Car.instance();
 

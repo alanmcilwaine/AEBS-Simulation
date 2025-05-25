@@ -1,7 +1,10 @@
 package com.fixit.car;
 
-import com.fixit.car.sensors.Sensor;
+import com.fixit.car.sensors.Camera;
+import com.fixit.car.sensors.Lidar;
+import com.fixit.car.sensors.Radar;
 import com.fixit.car.sensors.SensorType;
+import com.fixit.car.sensors.WheelSpeed;
 import com.fixit.controlsignal.ControlSignals;
 import com.fixit.interfaces.Interface;
 import com.fixit.interfaces.UserInterface;
@@ -15,9 +18,6 @@ import javax.swing.Timer;
  * control signals, the AEBS and interface.
  */
 public final class Car implements Vehicle {
-  interface MockSensor extends Sensor {
-    void readData(SensorType sensor, double data, Weather weather);
-  }
 
   /**
    * Car Interface.
@@ -26,29 +26,32 @@ public final class Car implements Vehicle {
   /**
    * Control signals in the car to determine whether to brake.
    */
-  private final ControlSignals controlSignal = new ControlSignals();
+  private final ControlSignals controlSignal = ControlSignals.cs();
   /**
    * 3 radar sensors in the car.
    */
-  private final List<MockSensor> radarSensors = new ArrayList<>();
+  private final List<Radar> radarSensors = new ArrayList<>();
   /**
    * 3 lidar sensors in the car.
    */
-  private final List<MockSensor> lidarSensors = new ArrayList<>();
+  private final List<Lidar> lidarSensors = new ArrayList<>();
   /**
    * 3 wheel speed sensors in the car.
    */
-  private final List<MockSensor> wheelSpeedSensors = new ArrayList<>();
+  private final List<WheelSpeed> wheelSpeedSensors = new ArrayList<>();
   /**
    * 3 camera sensors in the car.
    */
-  private final List<MockSensor> cameraSensors = new ArrayList<>();
+  private final List<Camera> cameraSensors = new ArrayList<>();
 
   private Car() {
-    assert !wheelSpeedSensors.isEmpty() : "No wheel speed sensors";
-    assert !cameraSensors.isEmpty() : "No camera sensors sensors";
-    assert !lidarSensors.isEmpty() : "No lidar sensors sensors";
-    assert !radarSensors.isEmpty() : "No radar sensors sensors";
+    assert controlSignal != null;
+
+    radarSensors.addAll(List.of(new Radar(), new Radar(), new Radar()));
+    lidarSensors.addAll(List.of(new Lidar(), new Lidar(), new Lidar()));
+    cameraSensors.addAll(List.of(new Camera(), new Camera(), new Camera()));
+    wheelSpeedSensors.addAll(List.of(new WheelSpeed(), new WheelSpeed()));
+
     Timer timer = new Timer(1, (unused) -> tick());
     timer.start();
   }
@@ -94,9 +97,7 @@ public final class Car implements Vehicle {
         wheelSpeedSensors.get(0).readData(sensor, signal, weather);
       case SensorType.WHEELSPEEDRIGHT ->
         wheelSpeedSensors.get(1).readData(sensor, signal, weather);
-      default -> {
-        throw new IllegalArgumentException("Unsupported sensor: " + sensor);
-      }
+      default -> throw new IllegalArgumentException("" + sensor);
     }
   }
 }

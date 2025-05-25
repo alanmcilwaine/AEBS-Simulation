@@ -9,7 +9,6 @@ import com.fixit.interfaces.UserInterface;
 import com.fixit.simulation.Weather;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.Timer;
 
 /**
  * Car holds the functionality for the system. It contains sensors,
@@ -53,7 +52,10 @@ public final class Car implements Vehicle {
    * Instance of car.
    */
   private static final Car INSTANCE;
-  static {INSTANCE = new Car();}
+
+  static {
+    INSTANCE = new Car();
+  }
 
   /**
    * Singleton pattern of Car. There should only be

@@ -19,13 +19,14 @@ public class Simulation {
    * Runs the simulation.
    */
   private void run() {
-    ReadSimulationFile file = new ReadSimulationFile(
-        "src/main/java/com/fixit/simulation/testdata.txt");
+    ReadSimulationFile file = new ReadSimulationFile("simulationData/normal.txt");
     file.readData();
     Car car = Car.instance();
 
     try {
       for (List<Double> data : file.sensorData()) {
+        data.forEach(System.out::print);
+        System.out.println();
         car.sensorInput(SensorType.LIDARLEFT, data.get(0), file.weather());
         car.sensorInput(SensorType.LIDARCENTRE, data.get(1), file.weather());
         car.sensorInput(SensorType.LIDARRIGHT, data.get(2), file.weather());

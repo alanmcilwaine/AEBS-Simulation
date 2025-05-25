@@ -9,5 +9,5 @@ public interface Sensor {
    * @param data
    * @return depends on success
    */
-  int readData(SensorType sensor, Double data, Weather weather);
+  int readData(final SensorType sensor, final Double data, final Weather weather);
 }

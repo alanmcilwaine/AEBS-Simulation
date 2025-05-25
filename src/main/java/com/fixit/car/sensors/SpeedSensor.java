@@ -7,15 +7,15 @@ public interface SpeedSensor extends Sensor {
   /**
    * @return
    */
-  void sendToControlSignal(SensorType sensor, Double data);
+  void sendToControlSignal(final SensorType sensor, final Double data);
 
   /**
    * @return
    */
-  void sendToInterface(Double data);
+  void sendToInterface(final Double data);
 
   /**
    * @return
    */
-  void sendToAEBS(SensorType sensor, Double data, Weather weather);
+  void sendToAEBS(final SensorType sensor, final Double data, final Weather weather);
 }

@@ -7,5 +7,5 @@ public interface DistanceSensor extends Sensor {
   /**
    * @return
    */
-  void sendToAEBS(SensorType sensor, Double data, Weather weather);
+  void sendToAEBS(final SensorType sensor, final Double data, final Weather weather);
 }

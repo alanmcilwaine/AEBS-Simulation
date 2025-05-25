@@ -4,7 +4,7 @@ package com.fixit.aebs;
  * The Automatic Emergency Braking System for vehicles. Would trigger a brake
  * signal to Control Signals if there are any hazards in front of the car.
  **/
-final class Aebs implements AutoBrakeSystem {
+final class Aebs {
 
   /** the amount of brakes to send to control signal. */
   private static double brakeValue = 0;
@@ -39,8 +39,7 @@ final class Aebs implements AutoBrakeSystem {
    *
    * @return the single instance of AEBS to be used.
    */
-  @Override
-  public Aebs instance() {
+  public static Aebs instance() {
     return INSTANCE;
   }
 
@@ -67,7 +66,6 @@ final class Aebs implements AutoBrakeSystem {
     } else {
       brakeValue = 0;
     }
-
 
   }
 
@@ -105,7 +103,7 @@ final class Aebs implements AutoBrakeSystem {
    *
    * @param distanceDataReceived the distance of other objects from vehicle.
    */
-  public static void receiveDistanceAebs(final double distanceDataReceived) {
+  public void receiveDistanceAebs(final double distanceDataReceived) {
     distanceData = distanceDataReceived;
     distanceReceived = true;
     INSTANCE.tick();
@@ -117,7 +115,7 @@ final class Aebs implements AutoBrakeSystem {
    *
    * @param wheelSpeedReceived the speed of the vehicle itself
    */
-  public static void receiveSpeedAebs(final double wheelSpeedReceived) {
+  public void receiveSpeedAebs(final double wheelSpeedReceived) {
     wheelSpeed = wheelSpeedReceived;
     speedReceived = true;
     INSTANCE.tick();

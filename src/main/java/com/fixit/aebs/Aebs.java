@@ -15,10 +15,10 @@ public final class Aebs {
   /** checks if the system has received speed values from sensor. */
   private static boolean speedReceived = false;
 
-  /** the distance that was received. */
+  /** the distance that was received, measured in m. */
   private static double distanceData = 0;
 
-  /** the distance that was received. */
+  /** the distance that was received, measured in m/s. */
   private static double wheelSpeed = 0;
 
   /** the singular instance of AEBS that the car is using. */
@@ -29,7 +29,9 @@ public final class Aebs {
    * It is private in order to ensure the singleton pattern.
    */
   private Aebs() {
-
+    assert brakeValue == 0;
+    assert !distanceReceived;
+    assert !speedReceived;
   }
 
   /**
@@ -50,7 +52,11 @@ public final class Aebs {
    * @return returns the amount of brake value needed for the car.
    */
   public double getBrakeValue() {
-    return brakeValue;
+    assert brakeValue >= 0;
+    double brakeReturn = brakeValue;
+    // reset the value back to zero once it has been sent.
+    brakeValue = 0;
+    return brakeReturn;
   }
 
   /**
@@ -58,84 +64,67 @@ public final class Aebs {
    * Based on the distance between the vehicle and the road hazards.
    */
   private void evaluateBraking() {
+    assert distanceData >= 0;
+    assert wheelSpeed >= 0;
 
-    // Determines whether or braking should happen or not
-    // This is to save resources on the calculations
-    if (distanceData >= determineThreshold()) {
-      brakeValue = determineBrakes();
-    } else {
-      brakeValue = 0;
-    }
-
-  }
-
-  /**
-   * Determines the distance threshold for the brakes.
-   * This threshold reflects the risk of the collision.
-   * Calculates via:
-   * Distance = Vehicle Speed * ReactionTime
-   *
-   * @return the distance at which the vehicle should send brake
-   */
-  private double determineThreshold() {
-    // the average human reaction time is 0.25 seconds
-    // for this purpose we will account for those who have
-    // slower reaction times by increasing this value
     final double reactTime = 0.35;
+    final double brakeThreshold = wheelSpeed * reactTime;
+    final double brakeMargin = 1.10;
+    final double percentageWrap = 100;
 
-    return wheelSpeed * reactTime;
-  }
+    // Determines whether or braking should happen.
+    if (distanceData < brakeThreshold) {
+      // taken from vf^2 = vi^2 + 2ad. find deceleration and add error margin.
+      double deceleration = (wheelSpeed * wheelSpeed) / (2 * distanceData);
+      deceleration *= brakeMargin;
 
-  /**
-   * Determines how much the vehicle should brake.
-   * Is calculated with the distance of other objects and vehicle wheel speed.
-   *
-   * @return returns how much braking should be given
-   */
-  private static double determineBrakes() {
-    double brakingPower = wheelSpeed - distanceData;
-    return 0;
+      // assert brake value non-negative and turn it into percentage.
+      assert brakeValue >= 0;
+      brakeValue = (deceleration / wheelSpeed) * percentageWrap;
+      return;
+    }
+    // if there is no need to brake then it's just 0
+    brakeValue = 0;
   }
 
   /**
    * Sends AEBS distance data of other objects on the road.
-   * This should only be used by the Sensors.
+   * This should only be used by the Sensors. Calls tick().
    *
    * @param distanceDataReceived the distance of other objects from vehicle.
    */
   public void receiveDistanceAebs(final double distanceDataReceived) {
-    distanceData = distanceDataReceived;
+    assert distanceDataReceived >= 0;
+    final double kmToM = 1000;
+    distanceData = distanceDataReceived * kmToM;
     distanceReceived = true;
     INSTANCE.tick();
   }
 
   /**
    * Sends AEBS speed data of the vehicle.
-   * This should only be used by the Sensors.
+   * This should only be used by the Sensors. Calls tick().
    *
    * @param wheelSpeedReceived the speed of the vehicle itself
    */
   public void receiveSpeedAebs(final double wheelSpeedReceived) {
-    wheelSpeed = wheelSpeedReceived;
+    assert wheelSpeedReceived >= 0;
+    final double kmhToMs = 3.6;
+    wheelSpeed = wheelSpeedReceived / kmhToMs;
     speedReceived = true;
     INSTANCE.tick();
   }
 
   /**
    * This ticks the AEBS to process the information that has been received.
-   * This is called by the methods receiveSpeedAEBS and
-   * receiveDistanceAEBS. Should only do something when
-   * both data has been gathered.
+   * Should only do something when both data has been gathered.
    */
   private void tick() {
-
     // if the distance and speed has been received
     if (distanceReceived && speedReceived) {
-
       evaluateBraking();
       distanceReceived = false;
       speedReceived = false;
     }
-
   }
 }

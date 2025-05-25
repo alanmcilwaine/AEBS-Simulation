@@ -99,8 +99,8 @@ final class Aebs {
    * @param wheelSpeedReceived the speed of the vehicle itself
    */
   public void receiveSpeedAebs(final double wheelSpeedReceived) {
-    final double conversion = 3.6;
-    wheelSpeed = wheelSpeedReceived / conversion;
+    final double kmhToMs = 3.6;
+    wheelSpeed = wheelSpeedReceived / kmhToMs;
     speedReceived = true;
     INSTANCE.tick();
   }

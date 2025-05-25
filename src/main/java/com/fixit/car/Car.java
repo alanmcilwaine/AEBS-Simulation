@@ -5,8 +5,6 @@ import com.fixit.car.sensors.Lidar;
 import com.fixit.car.sensors.Radar;
 import com.fixit.car.sensors.SensorType;
 import com.fixit.car.sensors.WheelSpeed;
-import com.fixit.controlsignal.ControlSignals;
-import com.fixit.interfaces.Interface;
 import com.fixit.interfaces.UserInterface;
 import com.fixit.simulation.Weather;
 import java.util.ArrayList;
@@ -15,18 +13,17 @@ import javax.swing.Timer;
 
 /**
  * Car holds the functionality for the system. It contains sensors,
- * control signals, the AEBS and interface.
+ * control signals, the Aebs and interface.
  */
 public final class Car implements Vehicle {
-
+  /**
+   * Car speed.
+   */
+  private double speed = 0;
   /**
    * Upper bound in for loops.
    */
   public static final int UPPERBOUND = 10;
-  /**
-   * Car Interface.
-   */
-  private final Interface ui = new UserInterface();
   /**
    * 3 radar sensors in the car.
    */
@@ -49,6 +46,7 @@ public final class Car implements Vehicle {
     lidarSensors.addAll(List.of(new Lidar(), new Lidar(), new Lidar()));
     cameraSensors.addAll(List.of(new Camera(), new Camera(), new Camera()));
     wheelSpeedSensors.addAll(List.of(new WheelSpeed(), new WheelSpeed()));
+    new UserInterface();
 
     Timer timer = new Timer(1, (unused) -> tick());
     timer.start();
@@ -68,6 +66,25 @@ public final class Car implements Vehicle {
    */
   public static Car instance() {
     return INSTANCE;
+  }
+
+  /**
+   * Change speed value of the car. (km/h)
+   * This is changed by the ControlSignals.
+   *
+   * @param newSpeed New km/h value of the car.
+   */
+  public void speed(final double newSpeed) {
+    this.speed = newSpeed;
+  }
+
+  /**
+   * Getter for speed.
+   *
+   * @return The speed of the car.
+   */
+  public double speed() {
+    return this.speed;
   }
 
   @Override

@@ -86,6 +86,7 @@ final class Aebs {
    * @param distanceDataReceived the distance of other objects from vehicle.
    */
   public void receiveDistanceAebs(final double distanceDataReceived) {
+    assert distanceDataReceived >= 0;
     final double kmToM = 1000;
     distanceData = distanceDataReceived * kmToM;
     distanceReceived = true;
@@ -99,6 +100,7 @@ final class Aebs {
    * @param wheelSpeedReceived the speed of the vehicle itself
    */
   public void receiveSpeedAebs(final double wheelSpeedReceived) {
+    assert wheelSpeedReceived >= 0;
     final double kmhToMs = 3.6;
     wheelSpeed = wheelSpeedReceived / kmhToMs;
     speedReceived = true;

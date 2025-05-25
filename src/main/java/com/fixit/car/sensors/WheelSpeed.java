@@ -25,8 +25,11 @@ public class WheelSpeed implements SpeedSensor {
 
   @Override
   public int readData(final SensorType sensor, final Double data, final Weather weather) {
-    sendToControlSignal(sensor, data);
-    sendToInterface(data);
+    // Convert data (rpm) to dataKmh (kmh)
+    Double dataKmh = (3/25)*Math.PI*0.25*data;
+    sendToControlSignal(sensor, dataKmh);
+    sendToInterface(dataKmh);
+    sendToAEBS(sensor, dataKmh, weather);
     return 1;
   }
 }

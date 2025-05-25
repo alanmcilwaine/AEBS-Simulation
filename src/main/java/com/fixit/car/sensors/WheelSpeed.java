@@ -1,6 +1,6 @@
 package com.fixit.car.sensors;
 
-import com.fixit.aebs.AEBS;
+import com.fixit.aebs.Aebs;
 import com.fixit.controlsignal.ControlSignals;
 import com.fixit.interfaces.UserInterface;
 import com.fixit.simulation.Weather;
@@ -15,7 +15,7 @@ public class WheelSpeed implements SpeedSensor {
 
     @Override
     public void sendToControlSignal(SensorType sensor, Double data) {
-        ControlSignals.processSensorData(sensor, data);
+        ControlSignals.cs().processSensorData(sensor, data);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class WheelSpeed implements SpeedSensor {
 
     @Override
     public void sendToAEBS(SensorType sensor, Double data, Weather weather) {
-        AEBS.receiveSpeedAEBS(data);
+        Aebs.receiveSpeedAebs(data);
     }
 
     @Override

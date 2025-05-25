@@ -13,14 +13,14 @@ import java.awt.event.KeyListener;
  * Contains methods to trigger brakes, and
  * disable the Automatic Braking system
  */
-public class UserInterface implements Interface, KeyListener {
+public class UserInterface implements Interface {
   /**
    * autoSystemToggle method calls controlSignal to enable or disable
    * the Automatic Emergency Braking system. Returns void, but tells the
    * user the state of the system (on or off)
    */
-  public void autoSystemToggle() {
-    //TODO: call CS to toggle Automatic Emergency Brake System
+  public static void autoSystemToggle() {
+    //call CS to toggle Automatic Emergency Brake System
   }
 
   /**
@@ -29,8 +29,9 @@ public class UserInterface implements Interface, KeyListener {
    *
    * @param brakePower The amount of power to send to the brakes.
    */
-  public void applyBrake(final double brakePower) {
-    //TODO: call CS to apply brake
+
+  public static void applyBrake(final double brakePower) {
+    //call CS to apply brake
   }
 
   /**

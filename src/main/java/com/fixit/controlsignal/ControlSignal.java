@@ -18,10 +18,9 @@ interface ControlSignal {
    * Processes the power of the brakes that will be applied. This involves
    * sending this value to the car.
    *
-   * @param action The action that the car brakes will take.
    * @param bPower The brake power to apply to the car.
    */
-  void processBrakePower(Action action, double bPower);
+  void processBrakePower(double bPower);
 
   /** Activates the Anti-lock Brake system. */
   default void triggerAntiLockBrake() {

@@ -59,8 +59,7 @@ public final class ControlSignals implements ControlSignal {
     }
   }
 
-  public void processBrakePower(final Action action, final double bPower) {
-    assert action != null;
+  public void processBrakePower(final double bPower) {
     assert bPower >= 0;
   }
 }

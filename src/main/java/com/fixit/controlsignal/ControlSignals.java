@@ -1,6 +1,7 @@
 package com.fixit.controlsignal;
 
-import com.fixit.car.sensors.SensorType;
+import com.fixit.car.Car;
+import com.fixit.car.sensors.*;
 
 /**
  * Signals that will be transmitted between the Automated Emergency Braking
@@ -39,13 +40,26 @@ public final class ControlSignals implements ControlSignal {
     return CONTROL_SIGNALS;
   }
 
-  public void processSensorData(final SensorType sensor, final double power) {
-    /* INSERT CODE HERE */
+  public void processSensorSpeed(final SensorType sType, final double wSpeed) {
+    assert sType != null;
+    assert wSpeed >= 0;
+
+    /*
+     * Here, we will be sending the retrieved Wheel Speed to the car in order
+     * for the speed to be adjusted. This will only happen in the case of the
+     * sensors detecting the Wheel Speed.
+     */
+    switch (sType){
+      case SensorType.WHEELSPEEDLEFT:
+      case SensorType.WHEELSPEEDRIGHT:
+
+        Car.instance().speed(wSpeed);
+
+        break;
+    }
   }
 
-  public void processUserInput(final Action action, final double power) {
-  }
-
-  public void makeAnAction() {
+  public void processBrakePower(final double bPower) {
+    assert bPower >= 0;
   }
 }

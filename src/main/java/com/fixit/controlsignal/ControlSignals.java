@@ -40,7 +40,7 @@ public final class ControlSignals implements ControlSignal {
     return CONTROL_SIGNALS;
   }
 
-  public void processSensorData(final SensorType sType, final double wSpeed) {
+  public void processSensorSpeed(final SensorType sType, final double wSpeed) {
     assert sType != null;
     assert wSpeed >= 0;
 
@@ -59,9 +59,9 @@ public final class ControlSignals implements ControlSignal {
     }
   }
 
-  public void processUserInput(final Action action, final double power) {
+  public void processBrakePower(final Action action, final double bPower) {
     assert action != null;
-    assert power >= 0;
+    assert bPower >= 0;
   }
 
   public void makeAnAction() {

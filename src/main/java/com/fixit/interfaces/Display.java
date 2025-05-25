@@ -1,27 +1,23 @@
 package com.fixit.interfaces;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Display Class will store all the interfaces required to show
  * the user the relevant data that it needs to see.
  */
-class Display {
+final class Display {
   /**
    *  speed variable is what will be used to display to driver.
    */
   private static double speed = 0;
 
   /**
-   * UPPERBOUND will be used to limit the number of Alerts that
-   * can be stored.
-   */
-  public static final int UPPERBOUND = 99;
-  /**
    * listOfAlerts stores all the alerts that need to be displayed
    * to the driver.
    */
-  private static ArrayList<String> listOfAlerts = new ArrayList<String>();
+  private static final Set<String> LIST_OF_ALERTS = new HashSet<>();
 
   /**
    * speedToShow is the putter method that updates the speed
@@ -36,17 +32,13 @@ class Display {
   /**
    *  Takes in the errors to show to eventually show the user.
    *
-   * @param error does thingy
+   * @param error is the error that needs to be placed
    */
   public static void errorsToShow(final String error) {
-    //TODO: will add to list of errors to show to eventually display
-    int numAlerts = 0;
-    for (String alert : listOfAlerts) {
-      int maxAlerts = 99;
-      if (numAlerts >= maxAlerts) {
-        break;
-      }
-      numAlerts++;
+    if (LIST_OF_ALERTS.contains(error)) {
+      LIST_OF_ALERTS.remove(error);
+    } else {
+      LIST_OF_ALERTS.add(error);
     }
   }
 
@@ -56,5 +48,11 @@ class Display {
    */
   public static void display() {
     System.out.println("Speed is currently: " + speed + " kph");
+    if (!LIST_OF_ALERTS.isEmpty()) {
+      System.out.println("Alerts: " + LIST_OF_ALERTS);
+    }
+  }
+
+  private Display() {
   }
 }

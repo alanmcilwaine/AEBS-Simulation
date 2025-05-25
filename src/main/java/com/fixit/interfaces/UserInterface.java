@@ -3,6 +3,7 @@ package com.fixit.interfaces;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import static com.fixit.interfaces.Display.errorsToShow;
 import static com.fixit.interfaces.Display.speedToShow;
 
 /**
@@ -54,7 +55,6 @@ public class UserInterface implements Interface, KeyListener {
 
   public void receiveSpeed(final double speed) {
     speedToShow(speed);
-    //TODO: call speedToShow to add speed to the display
   }
 
   /**
@@ -67,8 +67,7 @@ public class UserInterface implements Interface, KeyListener {
    *                ControlSignal that gets displayed to the user.
    */
   public void receiveWarning(final String warning) {
-    System.out.println(warning);
-    //placeholder logic to show user warning, not sure what data type yet.
+    errorsToShow(warning);
   }
 
   /**

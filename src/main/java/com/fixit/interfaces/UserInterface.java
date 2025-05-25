@@ -18,8 +18,13 @@ public class UserInterface implements Interface, KeyListener {
    * Returns void, but tells the user the state
    * of the system (on or off)
    */
+<<<<<<< HEAD
   public void autoSystemToggle() {
     //TODO: call CS to toggle Automatic Emergency Brake System
+=======
+  public static void autoSystemToggle() {
+    //call CS to toggle Automatic Emergency Brake System
+>>>>>>> origin
   }
   /**
    * applyBrake method calls controlSignal to apply the amount
@@ -29,8 +34,13 @@ public class UserInterface implements Interface, KeyListener {
    * @param brakePower The amount of power to send to the brakes.
    */
 
+<<<<<<< HEAD
   public void applyBrake(final double brakePower) {
     //TODO: call CS to apply brake
+=======
+  public static void applyBrake(final double brakePower) {
+    //call CS to apply brake
+>>>>>>> origin
   }
   /**
    * applyThrottle method calls controlSignal to apply the amount
@@ -40,8 +50,13 @@ public class UserInterface implements Interface, KeyListener {
    * @param throttlePower the amount of throttle to send to car.
    */
 
+<<<<<<< HEAD
   public void applyThrottle(final double throttlePower) {
     //TODO: call CS to apply throttle
+=======
+  public static void applyThrottle(final double throttlePower) {
+    //call CS to apply throttle
+>>>>>>> origin
   }
 
   /**
@@ -52,9 +67,14 @@ public class UserInterface implements Interface, KeyListener {
    * @param speed is the unit of measurement (kph) that
    *        will be displayed to the user.
    */
+<<<<<<< HEAD
 
   public void receiveSpeed(final double speed) {
     speedToShow(speed);
+=======
+  public static void receiveSpeed(final double speed) {
+    System.out.println(speed);    //placeholder logic to show user speed
+>>>>>>> origin
   }
 
   /**
@@ -66,6 +86,7 @@ public class UserInterface implements Interface, KeyListener {
    * @param warning is the warning object that gets passed from
    *                ControlSignal that gets displayed to the user.
    */
+<<<<<<< HEAD
   public void receiveWarning(final String warning) {
     errorsToShow(warning);
   }
@@ -109,5 +130,10 @@ public class UserInterface implements Interface, KeyListener {
   @Override
   public void keyReleased(KeyEvent e) {
 
+=======
+  public static void receiveWarning(final String warning) {
+    System.out.println(warning);
+    //placeholder logic to show user warning, not sure what data type yet.
+>>>>>>> origin
   }
 }

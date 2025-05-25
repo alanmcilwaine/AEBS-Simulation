@@ -47,6 +47,7 @@ final class Display {
    * show to the user any information that pops up.
    */
   public static void display() {
+    assert speed >= 0;
     System.out.println("Speed is currently: " + speed + " kph");
     if (!LIST_OF_ALERTS.isEmpty()) {
       System.out.println("Alerts: " + LIST_OF_ALERTS);

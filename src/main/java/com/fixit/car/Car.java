@@ -1,62 +1,61 @@
 package com.fixit.car;
 
-import com.fixit.car.sensors.Sensor;
+import com.fixit.car.sensors.Camera;
+import com.fixit.car.sensors.Lidar;
+import com.fixit.car.sensors.Radar;
 import com.fixit.car.sensors.SensorType;
-import com.fixit.controlsignal.ControlSignals;
-import com.fixit.interfaces.Interface;
+import com.fixit.car.sensors.WheelSpeed;
 import com.fixit.interfaces.UserInterface;
 import com.fixit.simulation.Weather;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.Timer;
 
 /**
  * Car holds the functionality for the system. It contains sensors,
- * control signals, the AEBS and interface.
+ * control signals, the Aebs and interface.
  */
 public final class Car implements Vehicle {
-  interface MockSensor extends Sensor {
-    void readData(SensorType sensor, double data, Weather weather);
-  }
-
   /**
-   * Car Interface.
+   * Car speed.
    */
-  private final Interface ui = new UserInterface();
+  private double speed = 0;
   /**
-   * Control signals in the car to determine whether to brake.
+   * Upper bound in for loops.
    */
-  private final ControlSignals controlSignal = new ControlSignals();
+  public static final int UPPERBOUND = 10;
   /**
    * 3 radar sensors in the car.
    */
-  private final List<MockSensor> radarSensors = new ArrayList<>();
+  private final List<Radar> radarSensors = new ArrayList<>();
   /**
    * 3 lidar sensors in the car.
    */
-  private final List<MockSensor> lidarSensors = new ArrayList<>();
+  private final List<Lidar> lidarSensors = new ArrayList<>();
   /**
    * 3 wheel speed sensors in the car.
    */
-  private final List<MockSensor> wheelSpeedSensors = new ArrayList<>();
+  private final List<WheelSpeed> wheelSpeedSensors = new ArrayList<>();
   /**
    * 3 camera sensors in the car.
    */
-  private final List<MockSensor> cameraSensors = new ArrayList<>();
+  private final List<Camera> cameraSensors = new ArrayList<>();
 
   private Car() {
-    assert !wheelSpeedSensors.isEmpty() : "No wheel speed sensors";
-    assert !cameraSensors.isEmpty() : "No camera sensors sensors";
-    assert !lidarSensors.isEmpty() : "No lidar sensors sensors";
-    assert !radarSensors.isEmpty() : "No radar sensors sensors";
-    Timer timer = new Timer(1, (unused) -> tick());
-    timer.start();
+    radarSensors.addAll(List.of(new Radar(), new Radar(), new Radar()));
+    lidarSensors.addAll(List.of(new Lidar(), new Lidar(), new Lidar()));
+    cameraSensors.addAll(List.of(new Camera(), new Camera(), new Camera()));
+    wheelSpeedSensors.addAll(List.of(new WheelSpeed(), new WheelSpeed()));
+    new UserInterface();
   }
 
   /**
    * Instance of car.
    */
-  private static final Car INSTANCE = new Car();
+  private static final Car INSTANCE;
+
+  static {
+    INSTANCE = new Car();
+  }
 
   /**
    * Singleton pattern of Car. There should only be
@@ -69,35 +68,67 @@ public final class Car implements Vehicle {
     return INSTANCE;
   }
 
+  /**
+   * Change speed value of the car. (km/h)
+   * This is changed by the ControlSignals.
+   *
+   * @param newSpeed New km/h value of the car.
+   */
+  public void speed(final double newSpeed) {
+    this.speed = newSpeed;
+  }
+
+  /**
+   * Getter for speed.
+   *
+   * @return The speed of the car.
+   */
+  public double speed() {
+    return this.speed;
+  }
+
   @Override
   public void tick() {
   }
 
   @Override
-  public int sensorInput(final SensorType sensor, final double signal,
+  public void sensorInput(final SensorType sensor, final double signal,
                          final Weather weather) {
     assert sensor != null;
     assert signal >= 0;
 
     switch (sensor) {
-      case SensorType.RADAR ->
-        radarSensors.forEach(s -> s.readData(sensor, signal, weather));
-      case SensorType.LIDARCENTRE ->
-        lidarSensors.get(1).readData(sensor, signal, weather);
-      case SensorType.LIDARLEFT ->
-        lidarSensors.get(0).readData(sensor, signal, weather);
-      case SensorType.LIDARRIGHT ->
-        lidarSensors.get(2).readData(sensor, signal, weather);
-      case SensorType.CAMERA ->
-        cameraSensors.forEach(s -> s.readData(sensor, signal, weather));
-      case SensorType.WHEELSPEEDLEFT ->
-        wheelSpeedSensors.get(0).readData(sensor, signal, weather);
-      case SensorType.WHEELSPEEDRIGHT ->
-        wheelSpeedSensors.get(1).readData(sensor, signal, weather);
-      default -> {
-        throw new IllegalArgumentException("Unsupported sensor: " + sensor);
+      case SensorType.RADAR -> {
+        for (int i = 0; i < radarSensors.size() && i < UPPERBOUND; i++) {
+          radarSensors.get(i).readData(sensor, signal, weather);
+        }
       }
+      case SensorType.LIDARCENTRE -> {
+        assert lidarSensors.get(1) != null;
+        lidarSensors.get(1).readData(sensor, signal, weather);
+      }
+      case SensorType.LIDARLEFT -> {
+        assert lidarSensors.getFirst() != null;
+        lidarSensors.getFirst().readData(sensor, signal, weather);
+      }
+      case SensorType.LIDARRIGHT -> {
+        assert lidarSensors.get(2) != null;
+        lidarSensors.get(2).readData(sensor, signal, weather);
+      }
+      case SensorType.CAMERA -> {
+        for (int i = 0; i < cameraSensors.size() && i < UPPERBOUND; i++) {
+          cameraSensors.get(i).readData(sensor, signal, weather);
+        }
+      }
+      case SensorType.WHEELSPEEDLEFT -> {
+        assert wheelSpeedSensors.getFirst() != null;
+        wheelSpeedSensors.getFirst().readData(sensor, signal, weather);
+      }
+      case SensorType.WHEELSPEEDRIGHT -> {
+        assert wheelSpeedSensors.get(1) != null;
+        wheelSpeedSensors.get(1).readData(sensor, signal, weather);
+      }
+      default -> throw new IllegalArgumentException("" + sensor);
     }
-    return 1;
   }
 }

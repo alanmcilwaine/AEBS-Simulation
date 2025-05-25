@@ -17,7 +17,8 @@ public class Camera implements DistanceSensor {
 
     @Override
     public int readData(SensorType sensor, Double data, Weather weather) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        sendToAEBS(sensor, data, weather);
+        return 1;
     }
     
 }

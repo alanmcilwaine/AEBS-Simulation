@@ -4,7 +4,7 @@ package com.fixit.aebs;
  * The Automatic Emergency Braking System for vehicles. Would trigger a brake
  * signal to Control Signals if there are any hazards in front of the car.
  **/
-final class Aebs {
+public final class Aebs {
 
   /** the amount of brakes to send to control signal. */
   private static double brakeValue = 0;

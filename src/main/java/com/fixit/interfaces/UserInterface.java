@@ -1,19 +1,30 @@
 package com.fixit.interfaces;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
+import static com.fixit.interfaces.Display.errorsToShow;
+import static com.fixit.interfaces.Display.speedToShow;
+
 /**
  * UI class holds functionality with the UI.
  * Contains methods to trigger brakes, and
  * disable the Automatic Braking system
  */
-public class UserInterface implements Interface {
+public class UserInterface implements Interface, KeyListener {
   /**
    * autoSystemToggle method calls controlSignal to
    * enable or disable the Automatic Emergency Braking system.
    * Returns void, but tells the user the state
    * of the system (on or off)
    */
+<<<<<<< HEAD
+  public void autoSystemToggle() {
+    //TODO: call CS to toggle Automatic Emergency Brake System
+=======
   public static void autoSystemToggle() {
     //call CS to toggle Automatic Emergency Brake System
+>>>>>>> origin
   }
   /**
    * applyBrake method calls controlSignal to apply the amount
@@ -23,8 +34,13 @@ public class UserInterface implements Interface {
    * @param brakePower The amount of power to send to the brakes.
    */
 
+<<<<<<< HEAD
+  public void applyBrake(final double brakePower) {
+    //TODO: call CS to apply brake
+=======
   public static void applyBrake(final double brakePower) {
     //call CS to apply brake
+>>>>>>> origin
   }
   /**
    * applyThrottle method calls controlSignal to apply the amount
@@ -34,19 +50,31 @@ public class UserInterface implements Interface {
    * @param throttlePower the amount of throttle to send to car.
    */
 
+<<<<<<< HEAD
+  public void applyThrottle(final double throttlePower) {
+    //TODO: call CS to apply throttle
+=======
   public static void applyThrottle(final double throttlePower) {
     //call CS to apply throttle
+>>>>>>> origin
   }
 
   /**
    * receiveSpeed method gets called by sensor
-   * package and then displays speed to the user.
+   * package and then calls the Display class speedToShow to
+   * display the speed to user.
    *
    * @param speed is the unit of measurement (kph) that
-   * will be displayed to the user.
+   *        will be displayed to the user.
    */
+<<<<<<< HEAD
+
+  public void receiveSpeed(final double speed) {
+    speedToShow(speed);
+=======
   public static void receiveSpeed(final double speed) {
     System.out.println(speed);    //placeholder logic to show user speed
+>>>>>>> origin
   }
 
   /**
@@ -55,11 +83,57 @@ public class UserInterface implements Interface {
    * This can be anything such as ABS being triggered, AutoBrakeSystem
    * being triggered, or enabled/disabled.
    *
-   * @param warning is the warning object that gets passed from ControlSignal
-   * that gets displayed to the user.
+   * @param warning is the warning object that gets passed from
+   *                ControlSignal that gets displayed to the user.
    */
+<<<<<<< HEAD
+  public void receiveWarning(final String warning) {
+    errorsToShow(warning);
+  }
+
+  /**
+   * tick method is the method used to update
+   * the Visual User Interface.
+   */
+  static void tick() {
+    Display.display();
+  }
+
+  /**
+   * Invoked when a key has been typed. See the class description
+   * for {@link KeyEvent} for a definition of a key typed event.
+   *
+   * @param e the event to be processed
+   */
+  @Override
+  public void keyTyped(KeyEvent e) {
+
+  }
+
+  /**
+   * Invoked when a key has been pressed. See the class description
+   * for {@link KeyEvent} for a definition of a key pressed event.
+   *
+   * @param e the event to be processed
+   */
+  @Override
+  public void keyPressed(KeyEvent e) {
+
+  }
+
+  /**
+   * Invoked when a key has been released. See the class description
+   * for {@link KeyEvent} for a definition of a key released event.
+   *
+   * @param e the event to be processed
+   */
+  @Override
+  public void keyReleased(KeyEvent e) {
+
+=======
   public static void receiveWarning(final String warning) {
     System.out.println(warning);
     //placeholder logic to show user warning, not sure what data type yet.
+>>>>>>> origin
   }
 }

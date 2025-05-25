@@ -47,15 +47,13 @@ public final class Car implements Vehicle {
     cameraSensors.addAll(List.of(new Camera(), new Camera(), new Camera()));
     wheelSpeedSensors.addAll(List.of(new WheelSpeed(), new WheelSpeed()));
     new UserInterface();
-
-    Timer timer = new Timer(1, (unused) -> tick());
-    timer.start();
   }
 
   /**
    * Instance of car.
    */
-  private static final Car INSTANCE = new Car();
+  private static final Car INSTANCE;
+  static {INSTANCE = new Car();}
 
   /**
    * Singleton pattern of Car. There should only be

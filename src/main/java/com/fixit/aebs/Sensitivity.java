@@ -28,7 +28,11 @@ public enum Sensitivity {
   },
   NONE;
 
-  /* The distance sensitivity for AEBS to use. */
+  /**
+   * Getter for the sensitivity value for AEBs to use.
+   *
+   * @return the sensitivity value.
+   */
   public double sensitivity() {
     return 0;
   }

@@ -1,5 +1,6 @@
 package com.fixit.controlsignal;
 
+import com.fixit.car.Car;
 import com.fixit.car.sensors.*;
 
 /**
@@ -39,15 +40,20 @@ public final class ControlSignals implements ControlSignal {
     return CONTROL_SIGNALS;
   }
 
-  public void processSensorData(final SensorType sensorType, final double wheelSpeed) {
-    assert sensorType != null;
-    assert wheelSpeed >= 0;
+  public void processSensorData(final SensorType sType, final double wSpeed) {
+    assert sType != null;
+    assert wSpeed >= 0;
 
-    switch (sensorType){
+    /*
+     * Here, we will be sending the retrieved Wheel Speed to the car in order
+     * for the speed to be adjusted. This will only happen in the case of the
+     * sensors detecting the Wheel Speed.
+     */
+    switch (sType){
       case SensorType.WHEELSPEEDLEFT:
       case SensorType.WHEELSPEEDRIGHT:
 
-        //Car.instance().speed(data);
+        Car.instance().speed(wSpeed);
 
         break;
     }

@@ -1,6 +1,6 @@
 package com.fixit.controlsignal;
 
-import com.fixit.car.sensors.SensorType;
+import com.fixit.car.sensors.*;
 
 /**
  * Signals that will be transmitted between the Automated Emergency Braking
@@ -40,12 +40,16 @@ public final class ControlSignals implements ControlSignal {
   }
 
   public void processSensorData(final SensorType sensor, final double power) {
-    /* INSERT CODE HERE */
+    assert sensor != null;
+    assert power >= 0;
   }
 
   public void processUserInput(final Action action, final double power) {
+    assert action != null;
+    assert power >= 0;
   }
 
   public void makeAnAction() {
+
   }
 }

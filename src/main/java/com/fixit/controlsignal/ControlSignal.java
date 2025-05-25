@@ -5,6 +5,8 @@ import com.fixit.car.sensors.SensorType;
 interface ControlSignal {
   /**
    * Takes a given car sensor, and processes the data in it.
+   * For example, if the sensor holds data related to Speed, this data will be
+   * sent to the Car and applied. The brake power will be sent to the AEBS.
    *
    * @param sensor The car sensor of interest, that holds the data.
    * @param power The brake power to apply to the car.

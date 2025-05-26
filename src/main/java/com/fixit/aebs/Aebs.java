@@ -53,7 +53,7 @@ public final class Aebs {
    *
    * @param sensitivity the sensitivity level to set.
    */
-  public void setSensitivity(Sensitivity sensitivity) {
+  public void setSensitivity(final Sensitivity sensitivity) {
     Aebs.sens = sensitivity;
 
   }
@@ -88,7 +88,7 @@ public final class Aebs {
     final double percentageWrap = 0.1;
 
     // Determines whether or braking should happen.
-    if (distanceData < brakeThreshold) {
+    if (distanceData < brakeThreshold && distanceData != 0) {
       distanceData = distanceData == 0 ? 1 : distanceData;
       // taken from vf^2 = vi^2 + 2ad. find deceleration and add error margin.
       double deceleration = (wheelSpeed * wheelSpeed) / (2 * distanceData);

@@ -87,6 +87,28 @@ public final class Car implements Vehicle {
     return this.speed;
   }
 
+  /**
+   * Check if all lidar sensors have a value.
+   *
+   * @return True if all values are set, otherwise false.
+   */
+  public boolean allLidarHasValues() {
+    boolean out = lidarSensors.stream()
+            .allMatch(s -> s.data() > 0);
+    if (!out) {
+      return false;
+    }
+    boolean allSame = lidarSensors.stream()
+            .map(Lidar::data)
+            .distinct()
+            .count() == 1;
+    if (!allSame) {
+      UserInterface.receiveWarning("Lidar sensors have different data.");
+    }
+    lidarSensors.forEach(c -> c.data(0));
+    return true;
+  }
+
   @Override
   public void tick() {
   }
@@ -105,15 +127,27 @@ public final class Car implements Vehicle {
       }
       case SensorType.LIDARCENTRE -> {
         assert lidarSensors.get(1) != null;
-        lidarSensors.get(1).readData(sensor, signal, weather);
+        Lidar lidar = lidarSensors.get(1);
+        lidar.data(signal);
+        if (allLidarHasValues()) {
+          lidar.readData(sensor, signal, weather);
+        }
       }
       case SensorType.LIDARLEFT -> {
         assert lidarSensors.getFirst() != null;
-        lidarSensors.getFirst().readData(sensor, signal, weather);
+        Lidar lidar = lidarSensors.getFirst();
+        lidar.data(signal);
+        if (allLidarHasValues()) {
+          lidar.readData(sensor, signal, weather);
+        }
       }
       case SensorType.LIDARRIGHT -> {
         assert lidarSensors.get(2) != null;
-        lidarSensors.get(2).readData(sensor, signal, weather);
+        Lidar lidar = lidarSensors.get(2);
+        lidar.data(signal);
+        if (allLidarHasValues()) {
+          lidar.readData(sensor, signal, weather);
+        }
       }
       case SensorType.CAMERA -> {
         for (int i = 0; i < cameraSensors.size() && i < UPPERBOUND; i++) {

@@ -29,6 +29,10 @@ public class ReadSimulationFile {
    * Path to the simulation data file.
    */
   private final Path filePath;
+  /**
+   * The initial speed of the car.
+   */
+  private Double initSpeed;
 
   /**
    * Constructs a ReadSimulationFile object with the path to a datafile.
@@ -50,6 +54,7 @@ public class ReadSimulationFile {
       List<String> content = Files.readAllLines(filePath);
       content.removeIf(String::isEmpty);
       setWeather(content.removeFirst());
+      this.initSpeed = Double.parseDouble(content.removeFirst());
 
       this.sensorData = content.stream()
           .map(c -> Arrays
@@ -104,5 +109,14 @@ public class ReadSimulationFile {
    */
   public List<List<Double>> sensorData() {
     return this.sensorData;
+  }
+
+  /**
+   * Getter for initSpeed variable.
+   *
+   * @return initSpeed.
+   */
+  public Double initSpeed() {
+    return this.initSpeed;
   }
 }

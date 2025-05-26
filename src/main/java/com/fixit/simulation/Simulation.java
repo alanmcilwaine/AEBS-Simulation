@@ -25,14 +25,15 @@ public class Simulation {
     file.readData();
     Car car = Car.instance();
     car.speed(file.initSpeed());
+    double rpmSpeed = (car.speed() * 25.0) / (3.0 * Math.PI * 0.25);
 
     try {
       for (List<Double> data : file.sensorData()) {
         car.sensorInput(SensorType.LIDARLEFT, data.get(0), file.weather());
         car.sensorInput(SensorType.LIDARCENTRE, data.get(1), file.weather());
         car.sensorInput(SensorType.LIDARRIGHT, data.get(2), file.weather());
-        car.sensorInput(SensorType.WHEELSPEEDLEFT, car.speed(), file.weather());
-        car.sensorInput(SensorType.WHEELSPEEDLEFT, car.speed(), file.weather());
+        car.sensorInput(SensorType.WHEELSPEEDLEFT, rpmSpeed, file.weather());
+        car.sensorInput(SensorType.WHEELSPEEDRIGHT, rpmSpeed, file.weather());
         Thread.sleep(SLEEPTIME);
       }
     } catch (InterruptedException e) {

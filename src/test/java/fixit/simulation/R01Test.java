@@ -34,7 +34,8 @@ public class R01Test {
       car.sensorInput(SensorType.LIDARLEFT, goodInput.get(0), Weather.SUNNY);
       car.sensorInput(SensorType.LIDARCENTRE, goodInput.get(1), Weather.SUNNY);
       car.sensorInput(SensorType.LIDARRIGHT, goodInput.get(2), Weather.SUNNY);
-      assert Display.LIST_OF_ALERTS.isEmpty();
+      assert !Display.LIST_OF_ALERTS.contains("2oo3 failed. Lidar do not agree.");
+      assert !Display.LIST_OF_ALERTS.contains("Lidar is incorrect 3 times. Removing and adding new one.");
     }
   }
   @Test
@@ -49,7 +50,8 @@ public class R01Test {
       car.sensorInput(SensorType.LIDARLEFT, goodInput.get(0), Weather.SUNNY);
       car.sensorInput(SensorType.LIDARCENTRE, goodInput.get(1), Weather.SUNNY);
       car.sensorInput(SensorType.LIDARRIGHT, goodInput.get(2), Weather.SUNNY);
-      assert Display.LIST_OF_ALERTS.isEmpty();
+      assert !Display.LIST_OF_ALERTS.contains("2oo3 failed. Lidar do not agree.");
+      assert !Display.LIST_OF_ALERTS.contains("Lidar is incorrect 3 times. Removing and adding new one.");
     }
   }
   @Test

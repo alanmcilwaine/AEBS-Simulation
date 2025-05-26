@@ -14,5 +14,7 @@ public interface DistanceSensor extends Sensor {
    * @param data Distance value to be sent
    * @param weather An enum representing weather status
    */
-  void sendToAEBS(final SensorType sensor, final Double data, final Weather weather);
+  void sendToAEBS(final SensorType sensor,
+                  final Double data,
+                  final Weather weather);
 }

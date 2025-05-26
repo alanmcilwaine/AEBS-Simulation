@@ -16,7 +16,9 @@ public class Lidar implements DistanceSensor {
    * @param weather An enum representing weather status
    */
   @Override
-  public void sendToAEBS(final SensorType sensor, final Double data, final Weather weather) {
+  public void sendToAEBS(final SensorType sensor,
+                         final Double data,
+                         final Weather weather) {
     Aebs.instance().receiveDistanceAebs(data);
   }
 
@@ -30,7 +32,9 @@ public class Lidar implements DistanceSensor {
    * @return 1 if successful
    */
   @Override
-  public int readData(final SensorType sensor, final Double data, final Weather weather) {
+  public int readData(final SensorType sensor,
+                      final Double data,
+                      final Weather weather) {
     sendToAEBS(sensor, data, weather);
     return 1;
   }

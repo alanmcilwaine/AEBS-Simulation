@@ -16,5 +16,7 @@ public interface Sensor {
    * @param weather An enum representing weather status
    * @return 1 if successful
    */
-  int readData(final SensorType sensor, final Double data, final Weather weather);
+  int readData(final SensorType sensor,
+               final Double data,
+               final Weather weather);
 }

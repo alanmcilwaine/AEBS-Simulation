@@ -17,7 +17,8 @@ public class WheelSpeed implements SpeedSensor {
    * @param data speed value to be sent (kmh)
    */
   @Override
-  public void sendToControlSignal(final SensorType sensor, final Double data) {
+  public void sendToControlSignal(final SensorType sensor,
+                                  final Double data) {
     ControlSignals.cs().processSensorData(sensor, data);
   }
 
@@ -39,7 +40,9 @@ public class WheelSpeed implements SpeedSensor {
    * @param weather An enum representing weather status
    */
   @Override
-  public void sendToAEBS(final SensorType sensor, final Double data, final Weather weather) {
+  public void sendToAEBS(final SensorType sensor,
+                         final Double data,
+                         final Weather weather) {
     Aebs.instance().receiveSpeedAebs(data);
   }
 
@@ -53,7 +56,9 @@ public class WheelSpeed implements SpeedSensor {
    * @return 1 if successful
    */
   @Override
-  public int readData(final SensorType sensor, final Double data, final Weather weather) {
+  public int readData(final SensorType sensor,
+                      final Double data,
+                      final Weather weather) {
     // Convert data (rpm) to dataKmh (kmh)
     Double dataKmh = (3/25)*Math.PI*0.25*data;
     sendToControlSignal(sensor, dataKmh);

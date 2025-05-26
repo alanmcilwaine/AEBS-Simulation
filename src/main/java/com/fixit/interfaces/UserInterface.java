@@ -1,13 +1,11 @@
 package com.fixit.interfaces;
 
-import static com.fixit.interfaces.Display.display;
-import static com.fixit.interfaces.Display.errorsToShow;
-import static com.fixit.interfaces.Display.speedToShow;
-
 import com.fixit.aebs.Aebs;
 import com.fixit.aebs.Sensitivity;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import static com.fixit.interfaces.Display.*;
 
 
 /**
@@ -78,7 +76,18 @@ public class UserInterface implements Interface, KeyListener {
    *               ControlSignal that gets displayed to the user.
    */
   public static void receiveWarning(final String warning) {
+    System.out.println("Interface (WARNING): " + warning);
     errorsToShow(warning);
+  }
+
+  /**
+   * removeWarning is a method called by ControlSignal when there is a
+   * warning to be removed.
+   *
+   * @param warning The exact warning string that needs to be removed.
+   */
+  public static void removeWarning(final String warning) {
+    errorsToRemove(warning);
   }
 
   /**

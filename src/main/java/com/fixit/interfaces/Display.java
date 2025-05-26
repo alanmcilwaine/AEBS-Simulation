@@ -7,7 +7,7 @@ import java.util.Set;
  * Display Class will store all the interfaces required to show
  * the user the relevant data that it needs to see.
  */
-final class Display {
+public final class Display {
   /**
    *  speed variable is what will be used to display to driver.
    */
@@ -17,7 +17,7 @@ final class Display {
    * listOfAlerts stores all the alerts that need to be displayed
    * to the driver.
    */
-  private static final Set<String> LIST_OF_ALERTS = new HashSet<>();
+  public static final Set<String> LIST_OF_ALERTS = new HashSet<>();
 
   /**
    * speedToShow is the putter method that updates the speed
@@ -35,11 +35,16 @@ final class Display {
    * @param error is the error that needs to be placed
    */
   public static void errorsToShow(final String error) {
-    if (LIST_OF_ALERTS.contains(error)) {
-      LIST_OF_ALERTS.remove(error);
-    } else {
-      LIST_OF_ALERTS.add(error);
-    }
+    LIST_OF_ALERTS.add(error);
+  }
+
+  /**
+   * Removes an error from the list of alerts.
+   *
+   * @param error The exact string to remove.
+   */
+  public static void errorsToRemove(final String error) {
+    LIST_OF_ALERTS.remove(error);
   }
 
   /**

@@ -5,10 +5,14 @@ import com.fixit.car.sensors.Lidar;
 import com.fixit.car.sensors.Radar;
 import com.fixit.car.sensors.SensorType;
 import com.fixit.car.sensors.WheelSpeed;
+import com.fixit.interfaces.Display;
 import com.fixit.interfaces.UserInterface;
 import com.fixit.simulation.Weather;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * Car holds the functionality for the system. It contains sensors,
@@ -93,9 +97,10 @@ public final class Car implements Vehicle {
    * @return True if all values are set, otherwise false.
    */
   public boolean allLidarHasValues() {
-    boolean out = lidarSensors.stream()
-            .allMatch(s -> s.data() > 0);
-    if (!out) {
+    final int lidarSensorCount = 3;
+    assert !lidarSensors.isEmpty();
+    assert lidarSensors.size() == lidarSensorCount;
+    if (lidarSensors.stream().anyMatch(s -> s.data() == -1)) {
       return false;
     }
     boolean allSame = lidarSensors.stream()
@@ -105,12 +110,62 @@ public final class Car implements Vehicle {
     if (!allSame) {
       UserInterface.receiveWarning("Lidar sensors have different data.");
     }
-    lidarSensors.forEach(c -> c.data(0));
+
     return true;
   }
 
   @Override
   public void tick() {
+  }
+
+  /**
+   * Method for handling the 2oo3 portion of LIDAR sensor.
+   *
+   * @param sensor Specific sensor type of the lidar.
+   * @param index Index in the lidarSensors for the specific lidar.
+   * @param signal Signal strength.
+   * @param weather Weather pattern.
+   */
+  public void handleLidar(final SensorType sensor, final int index,
+                          final double signal, final Weather weather) {
+    assert lidarSensors.get(index) != null;
+    assert signal >= 0;
+    Lidar lidar = lidarSensors.get(index);
+    lidar.data(signal);
+    if (allLidarHasValues()) {
+      // Determine 2oo3.
+      Optional<Double> votedValue = votedLidarValue();
+      votedValue.ifPresent(value -> lidar.readData(sensor, value, weather));
+      // Reset lidar values.
+      lidarSensors.forEach(c -> c.data(-1));
+    }
+  }
+
+  private Optional<Double> votedLidarValue() {
+    final double tolerance = 0.1;
+    final int requiredMajority = 2;
+    // Group sensor output to show if majority. e.g
+    // <0.5, 2> <100, 1>. This output implies 2 sensors had 0.5 input.
+    Map<Double, Long> values = lidarSensors.stream()
+            .map(Lidar::data)
+            .collect(Collectors.groupingBy(
+                    d -> roundToTolerance(d, tolerance),
+                    Collectors.counting()
+            ));
+    // Return an optional indicating the accepted value, OR empty on failure.
+    return values.entrySet().stream()
+            .filter(e -> e.getValue() >= requiredMajority)
+            .map(e -> Optional.of(e.getKey()))
+            .findFirst()
+            .orElseGet(() -> {
+              UserInterface.receiveWarning("2oo3 failed. Lidar do not agree.");
+              UserInterface.removeWarning("Lidar sensors have different data.");
+              return Optional.empty();
+            });
+  }
+
+  private double roundToTolerance(final double value, final double tolerance) {
+    return Math.round(value / tolerance) * tolerance;
   }
 
   @Override
@@ -125,30 +180,12 @@ public final class Car implements Vehicle {
           radarSensors.get(i).readData(sensor, signal, weather);
         }
       }
-      case SensorType.LIDARCENTRE -> {
-        assert lidarSensors.get(1) != null;
-        Lidar lidar = lidarSensors.get(1);
-        lidar.data(signal);
-        if (allLidarHasValues()) {
-          lidar.readData(sensor, signal, weather);
-        }
-      }
-      case SensorType.LIDARLEFT -> {
-        assert lidarSensors.getFirst() != null;
-        Lidar lidar = lidarSensors.getFirst();
-        lidar.data(signal);
-        if (allLidarHasValues()) {
-          lidar.readData(sensor, signal, weather);
-        }
-      }
-      case SensorType.LIDARRIGHT -> {
-        assert lidarSensors.get(2) != null;
-        Lidar lidar = lidarSensors.get(2);
-        lidar.data(signal);
-        if (allLidarHasValues()) {
-          lidar.readData(sensor, signal, weather);
-        }
-      }
+      case SensorType.LIDARCENTRE -> handleLidar(SensorType.LIDARCENTRE, 1,
+              signal, weather);
+      case SensorType.LIDARLEFT -> handleLidar(SensorType.LIDARLEFT, 0,
+              signal, weather);
+      case SensorType.LIDARRIGHT -> handleLidar(SensorType.LIDARRIGHT, 2,
+              signal, weather);
       case SensorType.CAMERA -> {
         for (int i = 0; i < cameraSensors.size() && i < UPPERBOUND; i++) {
           cameraSensors.get(i).readData(sensor, signal, weather);

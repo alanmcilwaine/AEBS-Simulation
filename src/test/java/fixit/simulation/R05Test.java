@@ -36,6 +36,9 @@ public class R05Test {
           SensorType.LIDARRIGHT, badInputs.get(i).get(2), Weather.SUNNY
       );
 
+      assert
+          Display.LIST_OF_ALERTS.contains("2oo3 failed. Lidar do not agree.");
+
       assert (i + 1) % 3 != 0
           || Display.LIST_OF_ALERTS.contains("Lidar is incorrect 3 times. "
           + "Removing and adding new one.")

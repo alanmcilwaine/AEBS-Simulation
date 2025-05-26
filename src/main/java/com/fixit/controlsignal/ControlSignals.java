@@ -3,6 +3,7 @@ package com.fixit.controlsignal;
 import com.fixit.aebs.Aebs;
 import com.fixit.car.Car;
 import com.fixit.car.sensors.SensorType;
+import com.fixit.interfaces.UserInterface;
 
 /**
  * Signals that will be transmitted between the Automated Emergency Braking
@@ -55,11 +56,11 @@ public final class ControlSignals {
       return;
     }
     double brakeValue = Aebs.instance().getBrakeValue();
+    String warningMessage = "OBJECT DETECTED!! AEBS TRIGGERED.";
     if (brakeValue != 0) {
-      System.out.println("OBJECT DETECTED!! AEBS TRIGGERED.");
-      System.out.println(brakeValue);
+      UserInterface.receiveWarning(warningMessage);
     } else {
-      System.out.println("Car Speed: " + wheelSpeed + "km/h");
+      UserInterface.removeWarning(warningMessage);
     }
     Car.instance().speed(wheelSpeed * (brakeValue != 0 ? brakeValue : 1));
   }

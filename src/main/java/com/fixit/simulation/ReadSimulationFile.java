@@ -1,6 +1,5 @@
 package com.fixit.simulation;
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,8 +17,8 @@ public class ReadSimulationFile {
    * 2D array for storing sensor data. Inner array should have only 3 elements.
    * e.g:
    * [[0, 0, 0]
-   *  [1, 1, 1]
-   *  [2, 2, 2]]
+   * [1, 1, 1]
+   * [2, 2, 2]]
    */
   private List<List<Double>> sensorData;
   /**
@@ -37,7 +36,9 @@ public class ReadSimulationFile {
    * @param path The path of the datafile
    */
   public ReadSimulationFile(final String path) {
-    this.filePath = Paths.get(path);
+    Path p = Paths.get(path);
+    assert Files.exists(p) : "File does not exist";
+    this.filePath = p;
   }
 
   /**
@@ -52,9 +53,9 @@ public class ReadSimulationFile {
 
       this.sensorData = content.stream()
           .map(c -> Arrays
-                  .stream(c.split(" "))
-                  .map(Double::parseDouble)
-                  .toList())
+              .stream(c.split(" "))
+              .map(Double::parseDouble)
+              .toList())
           .toList();
     } catch (IOException e) {
       throw new Error("Error reading file");

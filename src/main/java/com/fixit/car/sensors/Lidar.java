@@ -13,7 +13,7 @@ public class Lidar implements DistanceSensor {
     /**
      * Storing the Lidar measurement.
      */
-    private double data = 0;
+    private double data = -1;
 
     /**
      * Setter for the data variable.

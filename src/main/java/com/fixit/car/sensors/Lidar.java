@@ -28,6 +28,28 @@ public class Lidar implements DistanceSensor {
   private double data = -1;
 
   /**
+   * Storing how often this sensor has been incorrect.
+   */
+  private int incorrectCounter = 0;
+
+  /**
+   * Increase incorrectCounter by 1.
+   */
+  public void addIncorrectCounter() {
+    incorrectCounter++;
+  }
+
+  /**
+   * Getter for the incorrectCounter.
+   *
+   * @return Number of times the sensor has been incorrect.
+   */
+  public int incorrectCounter() {
+    return incorrectCounter;
+  }
+
+
+  /**
     * Setter for the data variable.
     * @param inData The new data.
     */

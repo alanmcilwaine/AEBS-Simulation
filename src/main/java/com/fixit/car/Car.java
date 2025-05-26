@@ -119,6 +119,7 @@ public final class Car implements Vehicle {
   public void testRemoveLidar(final int index) {
     lidarSensors.remove(index);
   }
+
   /**
    * Method for handling the 2oo3 portion of LIDAR sensor.
    *
@@ -127,7 +128,6 @@ public final class Car implements Vehicle {
    * @param signal Signal strength.
    * @param weather Weather pattern.
    */
-
   public void handleLidar(final SensorType sensor, final int index,
                           final double signal, final Weather weather) {
     assert lidarSensors.get(index) != null;
@@ -138,6 +138,14 @@ public final class Car implements Vehicle {
       // Determine 2oo3.
       Optional<Double> votedValue = votedLidarValue();
       votedValue.ifPresent(value -> lidar.readData(sensor, value, weather));
+      for (int i = lidarSensors.size() - 1; i >= 0; i--) {
+        if (lidarSensors.get(i).incorrectCounter() == 3) {
+          UserInterface.receiveWarning("Lidar is incorrect 3 times. "
+                  + "Removing and adding new one.");
+          lidarSensors.remove(i);
+          allLidarHasValues();
+        }
+      }
       // Reset lidar values.
       lidarSensors.forEach(c -> c.data(-1));
       UserInterface.tick();
@@ -155,6 +163,17 @@ public final class Car implements Vehicle {
                     d -> roundToTolerance(d, tolerance),
                     Collectors.counting()
             ));
+    // This will add how many times the sensor has been incorrect.
+    for (Map.Entry<Double, Long> entry : values.entrySet()) {
+      if (entry.getValue() != 1) {
+        continue;
+      }
+      for (Lidar lidar : lidarSensors) {
+        if (lidar.data() == entry.getKey()) {
+          lidar.addIncorrectCounter();
+        }
+      }
+    }
     // Return an optional indicating the accepted value, OR empty on failure.
     return values.entrySet().stream()
             .filter(e -> e.getValue() >= requiredMajority)

@@ -9,20 +9,11 @@ import com.fixit.car.sensors.*;
  * System, the sensors of the car, and the car itself.
  */
 public final class ControlSignals implements ControlSignal {
-  /** The current speed of the car. */
-  private double speed;
-
-  /** The current power of the brakes being applied. */
-  private double brakePower;
-
   /**
-   * Creates an instance of the Control Signals Class. As part of this,
-   * the "Speed" and "Brake Power" variables are initialised. The constructor
-   * is private to ensure only one instance of Control Signals is made.
+   * Creates an instance of the Control Signals Class. The constructor is
+   * private to ensure only one instance of Control Signals is made.
    */
   private ControlSignals() {
-    this.speed = Car.instance().speed();
-    this.brakePower = 0.0;
   }
 
   /**

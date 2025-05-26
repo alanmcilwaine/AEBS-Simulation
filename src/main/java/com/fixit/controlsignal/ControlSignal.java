@@ -21,9 +21,4 @@ interface ControlSignal {
    * @param bPower The brake power to apply to the car.
    */
   void processBrakePower(double bPower);
-
-  /** Activates the Anti-lock Brake system. */
-  default void triggerAntiLockBrake() {
-    /* todo: Implement if time allows. */
-  }
 }

@@ -62,11 +62,11 @@ public class WheelSpeed implements SpeedSensor {
                       final Double data,
                       final Weather weather) {
     // Convert data (rpm) to dataKmh (kmh)
-    if (data <= 0) { return 0; }
-    Double dataKmh = (3.0/25.0)*Math.PI*0.25*data;
-    sendToControlSignal(sensor, dataKmh);
-    sendToInterface(dataKmh);
-    sendToAEBS(sensor, dataKmh, weather);
+    //if (data <= 0) { return 0; }
+    //Double dataKmh = (3.0/25.0)*Math.PI*0.25*data;
+    sendToControlSignal(sensor, data);
+    sendToInterface(data);
+    sendToAEBS(sensor, data, weather);
     return 1;
   }
 }

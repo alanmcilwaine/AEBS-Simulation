@@ -33,7 +33,7 @@ public class R06Test {
     }
 
     assert Display.LIST_OF_ALERTS.contains("Sensor Anomaly Detected, check for hazards");
-    UserInterface.removeWarning("2oo3 failed. Lidar do not agree.");
+    UserInterface.removeWarning("Sensor Anomaly Detected, check for hazards");
   }
 
 }

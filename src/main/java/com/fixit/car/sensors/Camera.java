@@ -19,8 +19,8 @@ public class Camera implements DistanceSensor {
    * @param weather An enum representing weather status
    */
   @Override
-  public void sendToAEBS(final SensorType sensor, 
-                         final Double data, 
+  public void sendToAEBS(final SensorType sensor,
+                         final Double data,
                          final Weather weather) {
     throw new UnsupportedOperationException("Not supported yet.");
   }
@@ -35,8 +35,8 @@ public class Camera implements DistanceSensor {
    * @return 1 if successful
    */
   @Override
-  public int readData(final SensorType sensor, 
-                      final Double data, 
+  public int readData(final SensorType sensor,
+                      final Double data,
                       final Weather weather) {
     sendToAEBS(sensor, data, weather);
     return 1;

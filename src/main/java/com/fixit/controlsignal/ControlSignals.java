@@ -8,7 +8,7 @@ import com.fixit.car.sensors.SensorType;
  * Signals that will be transmitted between the Automated Emergency Braking
  * System, the sensors of the car, and the car itself.
  */
-public final class ControlSignals implements ControlSignal {
+public final class ControlSignals {
   /**
    * Creates an instance of the Control Signals Class. The constructor is
    * private to ensure only one instance of Control Signals is made.
@@ -34,7 +34,6 @@ public final class ControlSignals implements ControlSignal {
   }
 
   /**
-   * From JavaDoc comment in "Control Signal" Interface:
    * Processes data from the Wheel Speed Sensors; the data will be sent to the
    * car.
    *
@@ -66,7 +65,6 @@ public final class ControlSignals implements ControlSignal {
   }
 
   /**
-   * From JavaDoc comment in "Control Signal" Interface:
    * Processes the power of the brakes that will be applied. This involves
    * sending this value to the car.
    *

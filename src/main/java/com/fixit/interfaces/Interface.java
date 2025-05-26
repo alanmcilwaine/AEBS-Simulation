@@ -10,7 +10,7 @@ public interface Interface {
    * and then displays speed to the user.
    *
    * @param speed is the unit of measurement (kph)
-   * that will be displayed to the user.
+   *        that will be displayed to the user.
    */
   static void receiveSpeed(double speed) {
 
@@ -23,7 +23,8 @@ public interface Interface {
    * as ABS being triggered, AutoBrakeSystem being triggered, or
    * enabled/disabled.
    *
-   * @param warning is the warning object that gets passed from ControlSignal that gets displayed to the user.
+   * @param warning is the warning object that gets passed from ControlSignal
+   *               that gets displayed to the user.
    */
   static void receiveWarning(String warning) {
 

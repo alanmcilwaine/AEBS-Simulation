@@ -1,5 +1,6 @@
 package com.fixit.car;
 
+import com.fixit.aebs.Aebs;
 import com.fixit.car.sensors.Camera;
 import com.fixit.car.sensors.Lidar;
 import com.fixit.car.sensors.Radar;
@@ -96,6 +97,7 @@ public final class Car implements Vehicle {
                          final Weather weather) {
     assert sensor != null;
     assert signal >= 0;
+    //System.out.println("Car Speed: " + speed() + "km/h");
 
     switch (sensor) {
       case SensorType.RADAR -> {

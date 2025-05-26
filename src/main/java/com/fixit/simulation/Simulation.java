@@ -18,6 +18,7 @@ public class Simulation {
   /**
    * Runs the simulation.
    */
+  @SuppressWarnings("checkstyle:MagicNumber")
   private void run() {
     ReadSimulationFile file = new ReadSimulationFile(
             "simulationData/normal.txt");
@@ -26,11 +27,11 @@ public class Simulation {
 
     try {
       for (List<Double> data : file.sensorData()) {
-        data.forEach(a -> System.out.print(a + " "));
-        System.out.println();
         car.sensorInput(SensorType.LIDARLEFT, data.get(0), file.weather());
         car.sensorInput(SensorType.LIDARCENTRE, data.get(1), file.weather());
         car.sensorInput(SensorType.LIDARRIGHT, data.get(2), file.weather());
+        car.sensorInput(SensorType.WHEELSPEEDLEFT, data.get(3), file.weather());
+        car.sensorInput(SensorType.WHEELSPEEDLEFT, data.get(4), file.weather());
         Thread.sleep(SLEEPTIME);
       }
     } catch (InterruptedException e) {

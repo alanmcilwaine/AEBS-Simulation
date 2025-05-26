@@ -1,5 +1,6 @@
 package com.fixit.controlsignal;
 
+import com.fixit.aebs.Aebs;
 import com.fixit.car.Car;
 import com.fixit.car.sensors.*;
 
@@ -20,7 +21,7 @@ public final class ControlSignals implements ControlSignal {
    * is private to ensure only one instance of Control Signals is made.
    */
   private ControlSignals() {
-    this.speed = 0.0;
+    this.speed = Car.instance().speed();
     this.brakePower = 0.0;
   }
 
@@ -44,19 +45,11 @@ public final class ControlSignals implements ControlSignal {
     assert sType != null;
     assert wSpeed >= 0;
 
-    /*
-     * Here, we will be sending the retrieved Wheel Speed to the car in order
-     * for the speed to be adjusted. This will only happen in the case of the
-     * sensors detecting the Wheel Speed.
-     */
-    switch (sType){
-      case SensorType.WHEELSPEEDLEFT:
-      case SensorType.WHEELSPEEDRIGHT:
-
-        Car.instance().speed(wSpeed);
-
-        break;
+    if (!(sType == SensorType.WHEELSPEEDLEFT || sType == SensorType.WHEELSPEEDRIGHT)) {
+      return;
     }
+
+    Car.instance().speed(wSpeed * Aebs.instance().getBrakeValue());
   }
 
   public void processBrakePower(final double bPower) {

@@ -2,7 +2,7 @@ package com.fixit.controlsignal;
 
 import com.fixit.aebs.Aebs;
 import com.fixit.car.Car;
-import com.fixit.car.sensors.*;
+import com.fixit.car.sensors.SensorType;
 
 /**
  * Signals that will be transmitted between the Automated Emergency Braking
@@ -29,14 +29,30 @@ public final class ControlSignals implements ControlSignal {
    * @return The Control Signals instance created.
    */
   public static ControlSignals cs() {
+    assert CONTROL_SIGNALS != null;
     return CONTROL_SIGNALS;
   }
 
-  public void processSensorSpeed(final SensorType sType, final double wSpeed) {
-    assert sType != null;
-    assert wSpeed >= 0;
+  /**
+   * From JavaDoc comment in "Control Signal" Interface:
+   * Processes data from the Wheel Speed Sensors; the data will be sent to the
+   * car.
+   *
+   * @param sensorType The type of car sensor that we will be processing.
+   *                   In this context, it will be the Wheel Speed Sensors.
+   * @param wheelSpeed The current speed as detected by the sensors. This will
+   *                   be in kilometers per hour. (km/h or kph.)
+   */
+  public void processSensorSpeed(
+      final SensorType sensorType, final double wheelSpeed
+  ) {
+    assert sensorType != null;
+    assert wheelSpeed >= 0;
 
-    if (!(sType == SensorType.WHEELSPEEDLEFT || sType == SensorType.WHEELSPEEDRIGHT)) {
+    if (
+        !(sensorType == SensorType.WHEELSPEEDLEFT
+            || sensorType == SensorType.WHEELSPEEDRIGHT)
+    ) {
       return;
     }
     double brakeValue = Aebs.instance().getBrakeValue();
@@ -44,12 +60,19 @@ public final class ControlSignals implements ControlSignal {
       System.out.println("OBJECT DETECTED!! AEBS TRIGGERED.");
       System.out.println(brakeValue);
     } else {
-      System.out.println("Car Speed: " + wSpeed + "km/h");
+      System.out.println("Car Speed: " + wheelSpeed + "km/h");
     }
-    Car.instance().speed(wSpeed * (brakeValue != 0 ? brakeValue : 1));
+    Car.instance().speed(wheelSpeed * (brakeValue != 0 ? brakeValue : 1));
   }
 
-  public void processBrakePower(final double bPower) {
-    assert bPower >= 0;
+  /**
+   * From JavaDoc comment in "Control Signal" Interface:
+   * Processes the power of the brakes that will be applied. This involves
+   * sending this value to the car.
+   *
+   * @param brakePower The brake power to apply to the car.
+   */
+  public void processBrakePower(final double brakePower) {
+    assert brakePower >= 0;
   }
 }

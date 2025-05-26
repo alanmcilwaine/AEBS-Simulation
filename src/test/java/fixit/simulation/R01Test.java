@@ -53,6 +53,18 @@ public class R01Test {
   }
   @Test
   public void T03() {
+    Car car = Car.instance();
+    List<List<Double>> goodInputs = List.of(
+            List.of(10.0, 10.0, 50.0),
+            List.of(10.0, 50.0, 10.0),
+            List.of(100.0, 10.0, 10.0)
+    );
+    car.testRemoveLidar(0);
 
+    for (List<Double> goodInput : goodInputs) {
+      car.sensorInput(SensorType.LIDARLEFT, goodInput.get(0), Weather.SUNNY);
+      car.sensorInput(SensorType.LIDARCENTRE, goodInput.get(1), Weather.SUNNY);
+      car.sensorInput(SensorType.LIDARRIGHT, goodInput.get(2), Weather.SUNNY);
+    }
   }
 }

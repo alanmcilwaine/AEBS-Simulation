@@ -5,7 +5,6 @@ import com.fixit.car.sensors.Lidar;
 import com.fixit.car.sensors.Radar;
 import com.fixit.car.sensors.SensorType;
 import com.fixit.car.sensors.WheelSpeed;
-import com.fixit.interfaces.Display;
 import com.fixit.interfaces.UserInterface;
 import com.fixit.simulation.Weather;
 import java.util.ArrayList;
@@ -99,7 +98,9 @@ public final class Car implements Vehicle {
   public boolean allLidarHasValues() {
     final int lidarSensorCount = 3;
     assert !lidarSensors.isEmpty();
-    assert lidarSensors.size() == lidarSensorCount;
+    while (lidarSensors.size() != lidarSensorCount) {
+      lidarSensors.add(new Lidar());
+    }
     if (lidarSensors.stream().anyMatch(s -> s.data() == -1)) {
       return false;
     }
@@ -111,6 +112,14 @@ public final class Car implements Vehicle {
   }
 
   /**
+   * Removing a lidar. Used by the test.
+   *
+   * @param index Which lidar to remove, 0,1,2.
+   */
+  public void testRemoveLidar(final int index) {
+    lidarSensors.remove(index);
+  }
+  /**
    * Method for handling the 2oo3 portion of LIDAR sensor.
    *
    * @param sensor Specific sensor type of the lidar.
@@ -118,6 +127,7 @@ public final class Car implements Vehicle {
    * @param signal Signal strength.
    * @param weather Weather pattern.
    */
+
   public void handleLidar(final SensorType sensor, final int index,
                           final double signal, final Weather weather) {
     assert lidarSensors.get(index) != null;

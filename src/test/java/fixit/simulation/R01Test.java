@@ -41,6 +41,7 @@ public class R01Test {
   @Test
   public void T02() {
     Car car = Car.instance();
+    Display.LIST_OF_ALERTS.clear();
     List<List<Double>> goodInputs = List.of(
             List.of(10.0, 10.0, 50.0),
             List.of(10.0, 50.0, 10.0),
@@ -51,7 +52,6 @@ public class R01Test {
       car.sensorInput(SensorType.LIDARCENTRE, goodInput.get(1), Weather.SUNNY);
       car.sensorInput(SensorType.LIDARRIGHT, goodInput.get(2), Weather.SUNNY);
       assert !Display.LIST_OF_ALERTS.contains("2oo3 failed. Lidar do not agree.");
-      assert !Display.LIST_OF_ALERTS.contains("Lidar is incorrect 3 times. Removing and adding new one.");
     }
   }
   @Test

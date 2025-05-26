@@ -21,10 +21,10 @@ public class Simulation {
   @SuppressWarnings("checkstyle:MagicNumber")
   private void run() {
     ReadSimulationFile file = new ReadSimulationFile(
-            "simulationData/brake.txt");
+        "simulationData/brake.txt");
     file.readData();
     Car car = Car.instance();
-    car.speed(file.sensorData().get(0).get(3));
+    car.speed(file.initSpeed());
 
     try {
       for (List<Double> data : file.sensorData()) {

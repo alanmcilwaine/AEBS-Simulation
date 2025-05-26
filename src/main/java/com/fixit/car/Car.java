@@ -140,6 +140,7 @@ public final class Car implements Vehicle {
       votedValue.ifPresent(value -> lidar.readData(sensor, value, weather));
       // Reset lidar values.
       lidarSensors.forEach(c -> c.data(-1));
+      UserInterface.tick();
     }
   }
 

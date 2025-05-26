@@ -3,6 +3,7 @@ package com.fixit.interfaces;
 import static com.fixit.interfaces.Display.display;
 import static com.fixit.interfaces.Display.errorsToRemove;
 import static com.fixit.interfaces.Display.errorsToShow;
+import static com.fixit.interfaces.Display.flushErrors;
 import static com.fixit.interfaces.Display.speedToShow;
 
 import com.fixit.aebs.Aebs;
@@ -33,19 +34,20 @@ public class UserInterface implements Interface, KeyListener {
    * receiveWarning method gets called by ControlSignal package when there
    * is a warning that needs to be displayed to the driver. This can be anything
    * such as ABS being triggered, AutoBrakeSystem being triggered,
-   * or enabled/disabled.
+   * or enabled/disabled. No issues will arise if there are duplicate issues,
+   * warnings are stored in a set.
    *
    * @param warning is the warning object that gets passed from
    *               ControlSignal that gets displayed to the user.
    */
   public static void receiveWarning(final String warning) {
-    System.out.println("Interface (WARNING): " + warning);
     errorsToShow(warning);
   }
 
   /**
-   * removeWarning is a method called by ControlSignal when there is a
-   * warning to be removed.
+   * removeWarning is a method called by ControlSignal package when there is a
+   * warning to be removed. No issues will arise if such a warning does
+   * not exist.
    *
    * @param warning The exact warning string that needs to be removed.
    */
@@ -54,9 +56,17 @@ public class UserInterface implements Interface, KeyListener {
   }
 
   /**
+   * removeAllWarnings is a method called by ControlSignal package
+   * that flushes all warnings on command.
+   */
+  public static void removeAllWarnings() {
+    flushErrors();
+  }
+
+  /**
    * tick method is the method used to update the Visual User Interface.
    */
-  static void tick() {
+  public static void tick() {
     display();
   }
 

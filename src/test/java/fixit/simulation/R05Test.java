@@ -2,6 +2,7 @@ package fixit.simulation;
 
 import com.fixit.car.Car;
 import com.fixit.car.sensors.SensorType;
+import com.fixit.interfaces.Display;
 import com.fixit.simulation.Weather;
 import org.junit.jupiter.api.Test;
 
@@ -24,11 +25,26 @@ public class R05Test {
         List.of(111.0, 333.0, 222.0)
     );
 
-    for (List<Double> badInput : badInputs) {
-      car.sensorInput(SensorType.LIDARLEFT, badInput.get(0), Weather.SUNNY);
-      car.sensorInput(SensorType.LIDARCENTRE, badInput.get(1), Weather.SUNNY);
-      car.sensorInput(SensorType.LIDARRIGHT, badInput.get(2), Weather.SUNNY);
+    for (int i = 0; i < badInputs.size(); i++){
+      car.sensorInput(
+          SensorType.LIDARLEFT, badInputs.get(i).get(0), Weather.SUNNY
+      );
+      car.sensorInput(
+          SensorType.LIDARCENTRE, badInputs.get(i).get(1), Weather.SUNNY
+      );
+      car.sensorInput(
+          SensorType.LIDARRIGHT, badInputs.get(i).get(2), Weather.SUNNY
+      );
 
+      if (i % 3 == 0){
+        assert Display.LIST_OF_ALERTS.contains("Lidar is incorrect 3 times. "
+            + "Removing and adding new one.");
+      } else {
+        assert !(Display.LIST_OF_ALERTS.contains("Lidar is incorrect 3 times. "
+            + "Removing and adding new one."));
+      }
+
+      assert car.allLidarHasValues();
     }
 
   }

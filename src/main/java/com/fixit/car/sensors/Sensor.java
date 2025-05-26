@@ -8,6 +8,9 @@ import com.fixit.simulation.Weather;
 */
 public interface Sensor {
   /**
+   * Facilitates data distribution and
+   * handles any data conversions
+   * 
    * @param sensor An enum representing the sensors type
    * @param data Value to be handled and sent
    * @param weather An enum representing weather status

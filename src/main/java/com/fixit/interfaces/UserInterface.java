@@ -3,6 +3,7 @@ package com.fixit.interfaces;
 import static com.fixit.interfaces.Display.display;
 import static com.fixit.interfaces.Display.errorsToRemove;
 import static com.fixit.interfaces.Display.errorsToShow;
+import static com.fixit.interfaces.Display.flushErrors;
 import static com.fixit.interfaces.Display.speedToShow;
 
 import com.fixit.aebs.Aebs;
@@ -52,6 +53,14 @@ public class UserInterface implements Interface, KeyListener {
    */
   public static void removeWarning(final String warning) {
     errorsToRemove(warning);
+  }
+
+  /**
+   * removeAllWarnings is a method called by ControlSignal package
+   * that flushes all warnings on command.
+   */
+  public static void removeAllWarnings() {
+    flushErrors();
   }
 
   /**

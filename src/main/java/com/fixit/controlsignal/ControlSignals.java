@@ -63,14 +63,4 @@ public final class ControlSignals {
     }
     Car.instance().speed(wheelSpeed * (brakeValue != 0 ? brakeValue : 1));
   }
-
-  /**
-   * Processes the power of the brakes that will be applied. This involves
-   * sending this value to the car.
-   *
-   * @param brakePower The brake power to apply to the car.
-   */
-  public void processBrakePower(final double brakePower) {
-    assert brakePower >= 0;
-  }
 }

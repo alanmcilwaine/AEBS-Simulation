@@ -5,6 +5,7 @@ import com.fixit.controlsignal.ControlSignals;
 import com.fixit.interfaces.UserInterface;
 import com.fixit.simulation.Weather;
 
+
 /** 
  * Sensor for sending wheel
  * speed data to other packages
@@ -21,6 +22,7 @@ public class WheelSpeed implements SpeedSensor {
                                   final Double data) {
     ControlSignals.cs().processSensorData(sensor, data);
   }
+
 
   /**
    * Sends speed information to Interface package
@@ -66,4 +68,28 @@ public class WheelSpeed implements SpeedSensor {
     sendToAEBS(sensor, dataKmh, weather);
     return 1;
   }
+
+  @Override
+  public void sendToControlSignal(final SensorType sensor, final Double data) {
+    ControlSignals.cs().processSensorSpeed(sensor, data);
+  }
+
+  @Override
+  public void sendToInterface(final Double data) {
+    UserInterface.receiveSpeed(data);
+  }
+
+  @Override
+  public void sendToAEBS(final SensorType sensor, final Double data, final Weather weather) {
+    Aebs.instance().receiveSpeedAebs(data);
+  }
+
+  @Override
+  public int readData(final SensorType sensor, final Double data, final Weather weather) {
+    sendToAEBS(sensor, data, weather);
+    sendToControlSignal(sensor, data);
+    sendToInterface(data);
+    return 1;
+  }
+
 }

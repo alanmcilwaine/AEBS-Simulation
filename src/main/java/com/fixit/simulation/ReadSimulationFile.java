@@ -1,6 +1,5 @@
 package com.fixit.simulation;
 
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -18,8 +17,8 @@ public class ReadSimulationFile {
    * 2D array for storing sensor data. Inner array should have only 3 elements.
    * e.g:
    * [[0, 0, 0]
-   *  [1, 1, 1]
-   *  [2, 2, 2]]
+   * [1, 1, 1]
+   * [2, 2, 2]]
    */
   private List<List<Double>> sensorData;
   /**
@@ -30,6 +29,10 @@ public class ReadSimulationFile {
    * Path to the simulation data file.
    */
   private final Path filePath;
+  /**
+   * The initial speed of the car.
+   */
+  private Double initSpeed;
 
   /**
    * Constructs a ReadSimulationFile object with the path to a datafile.
@@ -37,7 +40,9 @@ public class ReadSimulationFile {
    * @param path The path of the datafile
    */
   public ReadSimulationFile(final String path) {
-    this.filePath = Paths.get(path);
+    Path p = Paths.get(path);
+    assert Files.exists(p) : "File does not exist";
+    this.filePath = p;
   }
 
   /**
@@ -49,12 +54,13 @@ public class ReadSimulationFile {
       List<String> content = Files.readAllLines(filePath);
       content.removeIf(String::isEmpty);
       setWeather(content.removeFirst());
+      this.initSpeed = Double.parseDouble(content.removeFirst());
 
       this.sensorData = content.stream()
           .map(c -> Arrays
-                  .stream(c.split(" "))
-                  .map(Double::parseDouble)
-                  .toList())
+              .stream(c.split(" "))
+              .map(Double::parseDouble)
+              .toList())
           .toList();
     } catch (IOException e) {
       throw new Error("Error reading file");
@@ -103,5 +109,14 @@ public class ReadSimulationFile {
    */
   public List<List<Double>> sensorData() {
     return this.sensorData;
+  }
+
+  /**
+   * Getter for initSpeed variable.
+   *
+   * @return initSpeed.
+   */
+  public Double initSpeed() {
+    return this.initSpeed;
   }
 }

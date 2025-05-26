@@ -23,6 +23,28 @@ public class Lidar implements DistanceSensor {
   }
 
   /**
+    * Storing the Lidar measurement.
+    */
+  private double data = -1;
+
+  /**
+    * Setter for the data variable.
+    * @param inData The new data.
+    */
+  public void data(final double inData) {
+    this.data = inData;
+  }
+
+  /**
+    * Getter for data.
+    * @return Returns the data variable.
+    */
+  public double data() {
+    return this.data;
+  }
+
+
+  /**
    * Facilitates distance data 
    * distribution with sendToAEBS()
    * 

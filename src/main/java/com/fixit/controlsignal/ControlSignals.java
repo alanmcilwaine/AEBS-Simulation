@@ -1,26 +1,20 @@
 package com.fixit.controlsignal;
 
+import com.fixit.aebs.Aebs;
+import com.fixit.car.Car;
 import com.fixit.car.sensors.SensorType;
+import com.fixit.interfaces.UserInterface;
 
 /**
  * Signals that will be transmitted between the Automated Emergency Braking
  * System, the sensors of the car, and the car itself.
  */
-public final class ControlSignals implements ControlSignal {
-  /** The current speed of the car. */
-  private double speed;
-
-  /** The current power of the brakes being applied. */
-  private double brakePower;
-
+public final class ControlSignals {
   /**
-   * Creates an instance of the Control Signals Class. As part of this,
-   * the "Speed" and "Brake Power" variables are initialised. The constructor
-   * is private to ensure only one instance of Control Signals is made.
+   * Creates an instance of the Control Signals Class. The constructor is
+   * private to ensure only one instance of Control Signals is made.
    */
   private ControlSignals() {
-    this.speed = 0.0;
-    this.brakePower = 0.0;
   }
 
   /**
@@ -36,16 +30,38 @@ public final class ControlSignals implements ControlSignal {
    * @return The Control Signals instance created.
    */
   public static ControlSignals cs() {
+    assert CONTROL_SIGNALS != null;
     return CONTROL_SIGNALS;
   }
 
-  public void processSensorData(final SensorType sensor, final double power) {
-    /* INSERT CODE HERE */
-  }
+  /**
+   * Processes data from the Wheel Speed Sensors; the data will be sent to the
+   * car.
+   *
+   * @param sensorType The type of car sensor that we will be processing.
+   *                   In this context, it will be the Wheel Speed Sensors.
+   * @param wheelSpeed The current speed as detected by the sensors. This will
+   *                   be in kilometers per hour. (km/h or kph.)
+   */
+  public void processSensorSpeed(
+      final SensorType sensorType, final double wheelSpeed
+  ) {
+    assert sensorType != null;
+    assert wheelSpeed >= 0;
 
-  public void processUserInput(final Action action, final double power) {
-  }
-
-  public void makeAnAction() {
+    if (
+        !(sensorType == SensorType.WHEELSPEEDLEFT
+            || sensorType == SensorType.WHEELSPEEDRIGHT)
+    ) {
+      return;
+    }
+    double brakeValue = Aebs.instance().getBrakeValue();
+    String warningMessage = "OBJECT DETECTED!! AEBS TRIGGERED.";
+    if (brakeValue != 0) {
+      UserInterface.receiveWarning(warningMessage);
+    } else {
+      UserInterface.removeWarning(warningMessage);
+    }
+    Car.instance().speed(wheelSpeed * (brakeValue != 0 ? brakeValue : 1));
   }
 }

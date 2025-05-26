@@ -21,17 +21,18 @@ public class Simulation {
   @SuppressWarnings("checkstyle:MagicNumber")
   private void run() {
     ReadSimulationFile file = new ReadSimulationFile(
-            "simulationData/normal.txt");
+            "simulationData/brake.txt");
     file.readData();
     Car car = Car.instance();
+    car.speed(file.sensorData().get(0).get(3));
 
     try {
       for (List<Double> data : file.sensorData()) {
         car.sensorInput(SensorType.LIDARLEFT, data.get(0), file.weather());
         car.sensorInput(SensorType.LIDARCENTRE, data.get(1), file.weather());
         car.sensorInput(SensorType.LIDARRIGHT, data.get(2), file.weather());
-        car.sensorInput(SensorType.WHEELSPEEDLEFT, data.get(3), file.weather());
-        car.sensorInput(SensorType.WHEELSPEEDLEFT, data.get(4), file.weather());
+        car.sensorInput(SensorType.WHEELSPEEDLEFT, car.speed(), file.weather());
+        car.sensorInput(SensorType.WHEELSPEEDLEFT, car.speed(), file.weather());
         Thread.sleep(SLEEPTIME);
       }
     } catch (InterruptedException e) {

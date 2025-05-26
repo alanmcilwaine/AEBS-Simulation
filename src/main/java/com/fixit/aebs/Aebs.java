@@ -97,7 +97,6 @@ public final class Aebs {
       // assert brake value non-negative and turn it into percentage.
       assert brakeValue >= 0;
       brakeValue = (deceleration / wheelSpeed) * percentageWrap;
-      //System.out.println("brakeValue: " + brakeValue);
       return;
     }
     // if there is no need to brake then it's just 0

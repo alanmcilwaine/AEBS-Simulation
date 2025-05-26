@@ -48,8 +48,13 @@ public final class ControlSignals implements ControlSignal {
     if (!(sType == SensorType.WHEELSPEEDLEFT || sType == SensorType.WHEELSPEEDRIGHT)) {
       return;
     }
-
     double brakeValue = Aebs.instance().getBrakeValue();
+    if (brakeValue != 0) {
+      System.out.println("OBJECT DETECTED!! AEBS TRIGGERED.");
+      System.out.println(brakeValue);
+    } else {
+      System.out.println("Car Speed: " + wSpeed + "km/h");
+    }
     Car.instance().speed(wSpeed * (brakeValue != 0 ? brakeValue : 1));
   }
 

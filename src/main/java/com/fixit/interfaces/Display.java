@@ -36,6 +36,7 @@ public final class Display {
    */
   public static void errorsToShow(final String error) {
     LIST_OF_ALERTS.add(error);
+    errorSound();
     assert LIST_OF_ALERTS.contains(error);
   }
 
@@ -54,6 +55,13 @@ public final class Display {
    */
   public static void flushErrors() {
     LIST_OF_ALERTS.clear();
+  }
+
+  /**
+   * Plays a sound to the driver whenever an error appears.
+   */
+  public static void errorSound() {
+    System.out.println("Alert Appearing sound");
   }
 
   /**

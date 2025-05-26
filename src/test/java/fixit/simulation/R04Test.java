@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-public class R05Test {
+public class R04Test {
   @Test
-  public void T01() {
+  public void T09() {
     Car car = Car.instance();
     List<List<Double>> testInputs = List.of(
             List.of(10.0, 10.0, 50.0),

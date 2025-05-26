@@ -29,6 +29,7 @@ public class R01Test {
       assert Display.LIST_OF_ALERTS.contains("2oo3 failed. Lidar do not agree.");
       UserInterface.removeWarning("2oo3 failed. Lidar do not agree.");
     }
+    UserInterface.removeWarning("Lidar is incorrect 3 times. Removing and adding new one.");
     for (List<Double> goodInput : goodInputs) {
       car.sensorInput(SensorType.LIDARLEFT, goodInput.get(0), Weather.SUNNY);
       car.sensorInput(SensorType.LIDARCENTRE, goodInput.get(1), Weather.SUNNY);

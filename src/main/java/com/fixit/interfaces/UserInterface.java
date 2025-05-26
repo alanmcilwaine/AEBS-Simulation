@@ -66,7 +66,7 @@ public class UserInterface implements Interface, KeyListener {
   /**
    * tick method is the method used to update the Visual User Interface.
    */
-  static void tick() {
+  public static void tick() {
     display();
   }
 

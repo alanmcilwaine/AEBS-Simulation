@@ -27,8 +27,8 @@ public class R01Test {
       car.sensorInput(SensorType.LIDARCENTRE, badInput.get(1), Weather.SUNNY);
       car.sensorInput(SensorType.LIDARRIGHT, badInput.get(2), Weather.SUNNY);
       assert Display.LIST_OF_ALERTS.contains("2oo3 failed. Lidar do not agree.");
+      UserInterface.removeWarning("2oo3 failed. Lidar do not agree.");
     }
-    UserInterface.removeWarning("2oo3 failed. Lidar do not agree.");
     for (List<Double> goodInput : goodInputs) {
       car.sensorInput(SensorType.LIDARLEFT, goodInput.get(0), Weather.SUNNY);
       car.sensorInput(SensorType.LIDARCENTRE, goodInput.get(1), Weather.SUNNY);

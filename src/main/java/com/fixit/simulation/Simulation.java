@@ -28,11 +28,12 @@ public class Simulation {
 
     try {
       for (List<Double> data : file.sensorData()) {
+        boolean first = true;
         car.sensorInput(SensorType.LIDARLEFT, data.get(0), file.weather());
         car.sensorInput(SensorType.LIDARCENTRE, data.get(1), file.weather());
         car.sensorInput(SensorType.LIDARRIGHT, data.get(2), file.weather());
         car.sensorInput(SensorType.WHEELSPEEDLEFT, car.speed(), file.weather());
-        car.sensorInput(SensorType.WHEELSPEEDLEFT, car.speed(), file.weather());
+        car.sensorInput(SensorType.WHEELSPEEDRIGHT, car.speed(), file.weather());
         Thread.sleep(SLEEPTIME);
       }
     } catch (InterruptedException e) {

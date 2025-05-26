@@ -7,6 +7,8 @@ import com.fixit.car.sensors.SensorType;
 import com.fixit.car.sensors.WheelSpeed;
 import com.fixit.interfaces.UserInterface;
 import com.fixit.simulation.Weather;
+
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -133,7 +135,9 @@ public final class Car implements Vehicle {
     assert lidarSensors.get(index) != null;
     assert signal >= 0;
     Lidar lidar = lidarSensors.get(index);
+    handleAnomalies(lidar, signal);
     lidar.data(signal);
+
     if (allLidarHasValues()) {
       // Determine 2oo3.
       Optional<Double> votedValue = votedLidarValue();
@@ -183,6 +187,25 @@ public final class Car implements Vehicle {
               UserInterface.receiveWarning("2oo3 failed. Lidar do not agree.");
               return Optional.empty();
             });
+  }
+
+  /**
+   * Checks if the input received from the simulation is an anomaly.
+   *
+   * @param signal signal strength.
+   */
+  public void handleAnomalies(final Lidar lidar,
+                              final double signal) {
+
+    assert lidar != null;
+    assert signal >= 0;
+
+    double difference = Math.abs(signal - lidar.data());
+
+    // If difference between the data received and prev is big.
+    if(difference > 450) {
+      UserInterface.receiveWarning("Sensor Anomaly Detected, check for hazards");
+    }
   }
 
   private double roundToTolerance(final double value, final double tolerance) {

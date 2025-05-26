@@ -29,8 +29,6 @@ public class R01Test {
       assert Display.LIST_OF_ALERTS.contains("2oo3 failed. Lidar do not agree.");
     }
     UserInterface.removeWarning("2oo3 failed. Lidar do not agree.");
-    UserInterface.removeWarning("Lidar sensors have different data.");
-    System.out.println(Display.LIST_OF_ALERTS);
     for (List<Double> goodInput : goodInputs) {
       car.sensorInput(SensorType.LIDARLEFT, goodInput.get(0), Weather.SUNNY);
       car.sensorInput(SensorType.LIDARCENTRE, goodInput.get(1), Weather.SUNNY);
@@ -40,7 +38,18 @@ public class R01Test {
   }
   @Test
   public void T02() {
-
+    Car car = Car.instance();
+    List<List<Double>> goodInputs = List.of(
+            List.of(10.0, 10.0, 50.0),
+            List.of(10.0, 50.0, 10.0),
+            List.of(100.0, 10.0, 10.0)
+    );
+    for (List<Double> goodInput : goodInputs) {
+      car.sensorInput(SensorType.LIDARLEFT, goodInput.get(0), Weather.SUNNY);
+      car.sensorInput(SensorType.LIDARCENTRE, goodInput.get(1), Weather.SUNNY);
+      car.sensorInput(SensorType.LIDARRIGHT, goodInput.get(2), Weather.SUNNY);
+      assert Display.LIST_OF_ALERTS.isEmpty();
+    }
   }
   @Test
   public void T03() {

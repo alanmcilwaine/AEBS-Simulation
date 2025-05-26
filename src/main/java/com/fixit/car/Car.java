@@ -103,15 +103,7 @@ public final class Car implements Vehicle {
     if (lidarSensors.stream().anyMatch(s -> s.data() == -1)) {
       return false;
     }
-    boolean allSame = lidarSensors.stream()
-            .map(Lidar::data)
-            .distinct()
-            .count() == 1;
-    if (!allSame) {
-      UserInterface.receiveWarning("Lidar sensors have different data.");
-    }
-
-    return true;
+    return lidarSensors.stream().anyMatch(s -> s.data() != -1);
   }
 
   @Override
@@ -159,7 +151,6 @@ public final class Car implements Vehicle {
             .findFirst()
             .orElseGet(() -> {
               UserInterface.receiveWarning("2oo3 failed. Lidar do not agree.");
-              UserInterface.removeWarning("Lidar sensors have different data.");
               return Optional.empty();
             });
   }

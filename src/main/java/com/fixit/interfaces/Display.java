@@ -36,6 +36,7 @@ public final class Display {
    */
   public static void errorsToShow(final String error) {
     LIST_OF_ALERTS.add(error);
+    assert LIST_OF_ALERTS.contains(error);
   }
 
   /**
@@ -45,6 +46,14 @@ public final class Display {
    */
   public static void errorsToRemove(final String error) {
     LIST_OF_ALERTS.remove(error);
+    assert !LIST_OF_ALERTS.contains(error);
+  }
+
+  /**
+   * flush Errors and reset it to blank.
+   */
+  public static void flushErrors() {
+    LIST_OF_ALERTS.clear();
   }
 
   /**

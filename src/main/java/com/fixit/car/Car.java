@@ -97,7 +97,7 @@ public final class Car implements Vehicle {
                          final Weather weather) {
     assert sensor != null;
     assert signal >= 0;
-    //System.out.println("Car Speed: " + speed() + "km/h");
+    System.out.println("Car Speed: " + speed() + "km/h");
 
     switch (sensor) {
       case SensorType.RADAR -> {

@@ -49,7 +49,8 @@ public final class ControlSignals implements ControlSignal {
       return;
     }
 
-    Car.instance().speed(wSpeed * Aebs.instance().getBrakeValue());
+    double brakeValue = Aebs.instance().getBrakeValue();
+    Car.instance().speed(wSpeed * (brakeValue != 0 ? brakeValue : 1));
   }
 
   public void processBrakePower(final double bPower) {

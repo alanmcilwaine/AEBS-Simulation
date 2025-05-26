@@ -85,7 +85,7 @@ public final class Aebs {
     final double reactTime = sens.sensitivity();
     final double brakeThreshold = wheelSpeed * reactTime;
     final double brakeMargin = 1.10;
-    final double percentageWrap = 100;
+    final double percentageWrap = 0.1;
 
     // Determines whether or braking should happen.
     if (distanceData < brakeThreshold) {
@@ -97,7 +97,7 @@ public final class Aebs {
       // assert brake value non-negative and turn it into percentage.
       assert brakeValue >= 0;
       brakeValue = (deceleration / wheelSpeed) * percentageWrap;
-      System.out.println("brakeValue: " + brakeValue);
+      //System.out.println("brakeValue: " + brakeValue);
       return;
     }
     // if there is no need to brake then it's just 0

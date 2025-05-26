@@ -28,7 +28,6 @@ public class Simulation {
 
     try {
       for (List<Double> data : file.sensorData()) {
-        boolean first = true;
         car.sensorInput(SensorType.LIDARLEFT, data.get(0), file.weather());
         car.sensorInput(SensorType.LIDARCENTRE, data.get(1), file.weather());
         car.sensorInput(SensorType.LIDARRIGHT, data.get(2), file.weather());

@@ -26,7 +26,7 @@ public interface SpeedSensor extends Sensor {
    * Sends speed information to AEBS package
    * 
    * @param sensor An enum representing the sensors type
-   * @param data value to be sent
+   * @param data speed value to be sent
    * @param weather An enum representing weather status
    */
   void sendToAEBS(final SensorType sensor, final Double data, final Weather weather);

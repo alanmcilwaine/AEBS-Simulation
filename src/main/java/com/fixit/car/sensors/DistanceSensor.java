@@ -2,10 +2,17 @@ package com.fixit.car.sensors;
 
 import com.fixit.simulation.Weather;
 
-/** */
+/** 
+ * Specific middleman for
+ * sensors that handle distance.
+*/
 public interface DistanceSensor extends Sensor {
-  /**
-   * @return
+   /**
+   * Sends distance information to AEBS package
+   * 
+   * @param sensor An enum representing the sensors type
+   * @param data distance value to be sent
+   * @param weather An enum representing weather status
    */
   void sendToAEBS(final SensorType sensor, final Double data, final Weather weather);
 }

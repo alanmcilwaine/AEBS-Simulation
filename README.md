@@ -1,4 +1,4 @@
-# SWEN326-Ficsit-T10-GroupProject
+# AEBS Simulation
 
 Requirements Plan:
 https://docs.google.com/document/d/10FXqJvZVBdcMTsel8rvlqIHBUTW_BIkGAOFotbsturU/edit?tab=t.0
@@ -42,4 +42,5 @@ we will create a duplicate with a new timeline and move future time targets arou
 ## Coding agreement
 ### Branching
 Each branch needs to relate to an issue. We must not commit straight to main without a commit. When merging to main,
+
 the user requires at least two approval/review.
